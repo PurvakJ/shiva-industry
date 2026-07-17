@@ -786,3 +786,134 @@
     font-size: 0.95rem;
   }
 }
+
+.milestones-timeline{
+  position:relative;
+  max-width:1100px;
+  margin:auto;
+  padding:40px 0;
+}
+
+.milestones-timeline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:4px;
+  height:100%;
+  background:linear-gradient(#ff8a00,#ffb347);
+  transform:translateX(-50%);
+}
+
+.milestone-item::before{
+  content:"";
+  position:absolute;
+  top:40px;
+  width:28px;
+  height:2px;
+  background:#ff7a00;
+}
+
+.milestone-left::before{
+  right:-28px;
+}
+
+.milestone-right::before{
+  left:-28px;
+}
+.milestone-item{
+  position:relative;
+  width:50%;
+  padding:25px 40px;
+  box-sizing:border-box;
+}
+
+.milestone-left .milestone-year{
+  position:absolute;
+  right:calc(100% + 50px);
+  top:30px;
+}
+
+.milestone-right .milestone-year{
+  position:absolute;
+  left:calc(-100px);
+  top:30px;
+}
+
+.milestone-left{
+  left:0;
+  text-align:right;
+}
+
+.milestone-right{
+  left:50%;
+  text-align:left;
+}
+
+.milestone-item::after{
+  content:"";
+  position:absolute;
+  top:40px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#ff8a00;
+  border:4px solid white;
+  box-shadow:0 0 15px rgba(255,138,0,.5);
+  z-index:10;
+}
+
+.milestone-left::after{
+  right:-28px;
+}
+
+.milestone-right::after{
+  left:-28px;
+}
+
+.milestone-content{
+  background:#fff;
+  border-radius:18px;
+  padding:25px;
+  transition:.4s ease;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.milestone-content:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 20px 45px rgba(255,138,0,.25);
+}
+
+.milestone-content h3{
+  transition:.35s;
+}
+
+.milestone-content:hover h3{
+  color:#ff8a00;
+}
+.milestone-item:hover::after{
+  transform:scale(1.4);
+  background:#fff;
+  border-color:#ff8a00;
+  transition:.35s;
+}
+
+@media(max-width:768px){
+
+  .milestones-timeline::before{
+      left:20px;
+  }
+  
+  .milestone-item{
+      width:100%;
+      left:0!important;
+      padding-left:60px;
+      padding-right:20px;
+      text-align:left;
+  }
+  
+  .milestone-item::after{
+      left:11px;
+  }
+  
+  }

@@ -207,26 +207,6 @@ const CORE_VALUES = [
   },
 ];
 
-const TEAM_MEMBERS = [
-  {
-    name: 'Rajesh Kumar',
-    role: 'Founder & CEO',
-    experience: '25+ years in heavy machinery',
-    image: '/images/team-rajesh.jpg',
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Head of Engineering',
-    experience: '15+ years in hydraulic systems',
-    image: '/images/team-priya.jpg',
-  },
-  {
-    name: 'Amit Singh',
-    role: 'Production Manager',
-    experience: '18+ years in manufacturing',
-    image: '/images/team-amit.jpg',
-  },
-];
 
 const MILESTONES = [
   { year: '2000', title: 'Foundation', description: 'Started operations with a focus on hydraulic systems.' },
@@ -360,7 +340,11 @@ export default function About() {
           <div className="milestones-timeline">
             {MILESTONES.map((milestone, index) => (
               <Reveal key={milestone.year} delay={`${index * 0.06}s`}>
-                <div className="milestone-item">
+                <div
+                  className={`milestone-item ${
+                  index % 2 === 0 ? "milestone-left" : "milestone-right"
+                    }`}
+                >
                   <div className="milestone-year">{milestone.year}</div>
                   <div className="milestone-content">
                     <h3>{milestone.title}</h3>
@@ -376,35 +360,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="section about-team">
-        <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow">Leadership</span>
-            <h2 className="section-title section-title--light">
-              The Team Behind <span className="text-accent">Excellence</span>
-            </h2>
-          </Reveal>
-          <div className="team-grid">
-            {TEAM_MEMBERS.map((member, index) => (
-              <Reveal key={member.name} delay={`${index * 0.08}s`}>
-                <div className="team-card">
-                  <div className="team-image-wrap">
-                    <img src={member.image} alt={member.name} className="team-image" />
-                    <div className="team-image-overlay">
-                      <span className="team-experience">{member.experience}</span>
-                    </div>
-                  </div>
-                  <div className="team-info">
-                    <h3>{member.name}</h3>
-                    <p className="team-role">{member.role}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       {featuredReviews.length > 0 && (

@@ -398,7 +398,7 @@ const CORE_LINES = [
     icon: 'hydraulic',
     title: 'Hydraulic Systems',
     body: 'Cylinders, pumps and power packs machined to hold pressure, shift after shift.',
-    image: '/images/hydraulic-systems.jpg',
+    image: 'https://5.imimg.com/data5/SELLER/Default/2021/10/WR/FF/IQ/11057383/mild-steel-hydraulic-press-brake-machine-500x500.jpg',
   },
   {
     icon: 'biomass',
@@ -577,11 +577,11 @@ export default function Home() {
             </ul>
           </Reveal>
           <Reveal className="about-image-wrap" delay="0.1s">
-            <img 
-              src="/images/about-us.jpg" 
-              alt="Shiva Industry - Heavy Machinery Manufacturing" 
-              className="about-image"
-            />
+          <img
+    src="https://5.imimg.com/data5/SELLER/Default/2021/10/RA/TP/FF/11057383/mild-steel-angle-cutting-machine-500x500.jpg"
+    alt="Shiva Industry - Heavy Machinery Manufacturing"
+    className="about-image"
+/>
             <div className="about-image-overlay">
               <h4 className="overlay-title">20+ Years of Excellence</h4>
               <p className="overlay-sub">Precision Engineering • Quality Assured</p>

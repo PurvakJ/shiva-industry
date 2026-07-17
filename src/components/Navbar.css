@@ -12,6 +12,9 @@
   transition: all 0.3s ease;
   height: 76px;
 }
+.navbar-link {
+  white-space: nowrap;
+}
 
 .navbar--scrolled {
   background: rgba(27, 34, 38, 0.98);

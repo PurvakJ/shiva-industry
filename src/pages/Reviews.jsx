@@ -306,7 +306,7 @@ export default function Reviews() {
                 <div className="form-group rating-group">
                   <label>Your Rating *</label>
                   <div className="rating-selector">
-                    {[5, 4, 3, 2, 1].map(num => (
+                    {[1, 2, 3, 4, 5].map(num => (
                       <button
                         key={num}
                         type="button"

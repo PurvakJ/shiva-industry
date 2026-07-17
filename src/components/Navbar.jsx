@@ -14,7 +14,7 @@ export default function Navbar() {
     { path: '/about', label: 'About' },
     { path: '/products', label: 'Products' },
     { path: '/gallery', label: 'Gallery' },
-    { path: '/upcoming-sites', label: 'Upcoming Sites' },
+    { path: '/upcoming-sites', label: 'Upcoming ' },
     { path: '/coming-soon', label: 'Coming Soon' },
     { path: '/reviews', label: 'Reviews' },
     { path: '/contact', label: 'Contact' },
