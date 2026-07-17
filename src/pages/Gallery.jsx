@@ -1,3 +1,5 @@
+// Gallery.jsx - Updated component with bigger images
+
 import { useData } from '../context/DataContext';
 import { useEffect, useRef, useState } from 'react';
 import './Gallery.css';

@@ -207,7 +207,6 @@ const CORE_VALUES = [
   },
 ];
 
-
 const MILESTONES = [
   { year: '2000', title: 'Foundation', description: 'Started operations with a focus on hydraulic systems.' },
   { year: '2005', title: 'Expansion', description: 'Expanded into biomass machinery and shredder parts.' },
@@ -254,7 +253,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* Our Story with Image */}
       <section className="section about-story">
         <div className="container">
           <div className="about-story-grid">
@@ -291,8 +290,12 @@ export default function About() {
             </Reveal>
             <Reveal className="about-story-image" delay="0.1s">
               <div className="about-story-image-placeholder">
+                <img 
+                  src="https://i.postimg.cc/bJQrtt15/39dc734a-c655-4603-afed-01f28a9aedeb.png" 
+                  alt="Shiva Industry - Manufacturing Excellence" 
+                  className="about-story-image-img"
+                />
                 <div className="about-story-year-badge">Since 2000</div>
-                <Icon name="gear" className="about-story-gear" />
                 <div className="about-story-image-overlay">
                   <span className="about-story-tag">Manufacturing Excellence</span>
                 </div>
@@ -359,7 +362,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
 
       {/* Testimonials */}
       {featuredReviews.length > 0 && (

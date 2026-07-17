@@ -72,7 +72,7 @@ function Icon({ name, className }) {
             width="3"
             height="5"
             rx="0.5"
-            transform={`rotate(${i * 45} 12 12)`}
+            transform={`rotate(${i * 45} 12 12}`}
           />
         ))}
       </>
@@ -105,6 +105,24 @@ function Icon({ name, className }) {
         <line x1="12" y1="16" x2="12.01" y2="16" />
       </>
     ),
+    phone: (
+      <>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    external: (
+      <>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </>
+    )
   };
   return (
     <svg
@@ -163,8 +181,70 @@ function Reveal({ as: Tag = 'div', className = '', delay, children }) {
   );
 }
 
-/* Product Detail Modal */
-function ProductModal({ product, onClose, onEnquire }) {
+/* Helper function to parse specifications from description */
+function parseSpecs(description) {
+  if (!description) return { specs: {}, descriptionText: '' };
+  const lines = description.split('\n').filter(line => line.trim());
+  const specs = {};
+  let descriptionText = '';
+  
+  lines.forEach(line => {
+    const match = line.match(/^([^:]+):\s*(.+)$/);
+    if (match) {
+      specs[match[1].trim()] = match[2].trim();
+    } else {
+      descriptionText += line + ' ';
+    }
+  });
+  
+  return { specs, descriptionText: descriptionText.trim() };
+}
+
+/* Helper function to get random items from array */
+function getRandomItems(array, count) {
+  if (!array || array.length === 0) return [];
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, count);
+}
+
+/* Contact Phone Component with Direct Call & WhatsApp */
+function ContactPhone() {
+  const phoneNumber = '+91 92168 00934';
+  const phoneLink = 'tel:+919216800934';
+  const whatsappLink = 'https://wa.me/919216800934';
+  
+  return (
+    <div className="contact-phone-card">
+      <div className="contact-phone-icon">
+        <Icon name="phone" className="phone-icon" />
+      </div>
+      <div className="contact-phone-content">
+        <span className="contact-phone-label">Call or WhatsApp for Enquiry</span>
+        <div className="contact-actions-row">
+          <a href={phoneLink} className="contact-call-btn">
+            <Icon name="phone" className="action-icon" />
+            Call Now
+          </a>
+          <a href={whatsappLink} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+            <Icon name="whatsapp" className="whatsapp-icon" />
+            WhatsApp
+          </a>
+        </div>
+        <span className="contact-phone-number-display">{phoneNumber}</span>
+      </div>
+    </div>
+  );
+}
+
+/* Product Detail Modal - Wider Layout */
+function ProductModal({ product, onClose }) {
+  const parsedData = product?.Description ? parseSpecs(product.Description) : null;
+  const hasSpecs = parsedData && Object.keys(parsedData.specs).length > 0;
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose();
@@ -180,205 +260,92 @@ function ProductModal({ product, onClose, onEnquire }) {
   if (!product) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">
-          <Icon name="close" className="modal-close-icon" />
+    <div className="product-detail-overlay" onClick={onClose}>
+      <div className="product-detail-page" onClick={(e) => e.stopPropagation()}>
+        <button className="detail-close" onClick={onClose} aria-label="Close">
+          <Icon name="close" className="detail-close-icon" />
         </button>
-        
-        <div className="modal-grid">
-          {product.Image && (
-            <div className="modal-image-wrap">
-              <img src={product.Image} alt={product.Name} className="modal-image" />
+
+        <div className="detail-container">
+          {/* Main Content */}
+          <div className="detail-main">
+            {/* Image Section */}
+            <div className="detail-image-section">
+              {product.Image && (
+                <img src={product.Image} alt={product.Name} className="detail-main-image" />
+              )}
               {product.Featured === true && (
-                <span className="featured-badge">
+                <span className="detail-featured-badge">
                   <Icon name="star" className="featured-icon" />
                   Featured
                 </span>
               )}
             </div>
-          )}
-          
-          <div className="modal-details">
-            <div className="modal-header">
-              <h2 className="modal-title">{product.Name}</h2>
-              {product.Category && (
-                <span className="modal-category">{product.Category}</span>
-              )}
-            </div>
 
-            <div className="modal-meta">
-              {product.Price && (
-                <div className="modal-price">{product.Price}</div>
-              )}
-              {product.Stock !== undefined && (
-                <div className={`modal-stock ${product.Stock === 0 ? 'out-of-stock' : product.Stock <= 5 ? 'low-stock' : 'in-stock'}`}>
-                  {product.Stock === 0 ? 'Out of Stock' : 
-                   product.Stock <= 5 ? `Only ${product.Stock} left` : 
-                   `${product.Stock} in stock`}
-                </div>
-              )}
-            </div>
-
-            <div className="modal-description">
-              <h4>Description</h4>
-              <p>{product.Description || 'No description available.'}</p>
-            </div>
-
-            {product.Specifications && Object.keys(product.Specifications).length > 0 && (
-              <div className="modal-specs">
-                <h4>Specifications</h4>
-                <div className="specs-grid">
-                  {Object.entries(product.Specifications).map(([key, value]) => (
-                    <div key={key} className="spec-item">
-                      <span className="spec-label">{key}</span>
-                      <span className="spec-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Info Section */}
+            <div className="detail-info-section">
+              <div className="detail-header">
+                <h1 className="detail-title">{product.Name}</h1>
+                {product.Category && (
+                  <span className="detail-category">{product.Category}</span>
+                )}
               </div>
-            )}
 
-            <div className="modal-actions">
-              <button 
-                className="modal-btn modal-btn-primary"
-                onClick={() => onEnquire(product)}
-              >
-                <Icon name="message" className="modal-btn-icon" />
-                Enquire Now
-              </button>
-              <button 
-                className="modal-btn modal-btn-secondary"
-                onClick={onClose}
-              >
-                Close
-              </button>
+              <div className="detail-meta">
+                {product.Price && (
+                  <div className="detail-price">{product.Price}</div>
+                )}
+                {product.Stock !== undefined && (
+                  <div className={`detail-stock ${product.Stock === 0 ? 'out-of-stock' : product.Stock <= 5 ? 'low-stock' : 'in-stock'}`}>
+                    {product.Stock === 0 ? 'Out of Stock' : 
+                     product.Stock <= 5 ? `Only ${product.Stock} left` : 
+                     `${product.Stock} in stock`}
+                  </div>
+                )}
+              </div>
+
+              {/* Specifications Table */}
+              {hasSpecs && (
+                <div className="detail-specs-wrap">
+                  <h3>Specifications</h3>
+                  <div className="detail-specs-table">
+                    {Object.entries(parsedData.specs).map(([key, value]) => (
+                      <div key={key} className="detail-spec-row">
+                        <span className="detail-spec-label">{key}</span>
+                        <span className="detail-spec-value">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Description */}
+              {parsedData?.descriptionText && (
+                <div className="detail-description">
+                  <h3>Description</h3>
+                  <p>{parsedData.descriptionText}</p>
+                </div>
+              )}
+
+              {!hasSpecs && product.Description && (
+                <div className="detail-description">
+                  <h3>Description</h3>
+                  <p>{product.Description}</p>
+                </div>
+              )}
+
+              <div className="detail-actions">
+                <ContactPhone />
+                <button 
+                  className="detail-btn detail-btn-secondary"
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* Enquiry Modal */
-function EnquiryModal({ product, onClose, onSubmit }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    productName: product?.Name || ''
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Enquiry submitted:', formData);
-    setSubmitted(true);
-    onSubmit(formData);
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  if (!product) return null;
-
-  if (submitted) {
-    return (
-      <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content enquiry-success" onClick={(e) => e.stopPropagation()}>
-          <div className="success-content">
-            <Icon name="check" className="success-icon" />
-            <h3>Enquiry Sent!</h3>
-            <p>Thank you for your interest in {product.Name}. We'll get back to you within 24 hours.</p>
-            <button className="modal-btn modal-btn-primary" onClick={onClose}>
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content enquiry-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">
-          <Icon name="close" className="modal-close-icon" />
-        </button>
-        
-        <div className="enquiry-header">
-          <h3>Enquire about {product.Name}</h3>
-          <p>Fill in your details and we'll get back to you shortly.</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="enquiry-form">
-          <div className="form-group">
-            <label htmlFor="name">Full Name *</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              placeholder="John Doe"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email Address *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="john@example.com"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+1 234 567 890"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Message *</label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows="4"
-              placeholder={`I'm interested in the ${product.Name}. Please provide more information.`}
-            />
-          </div>
-
-          <div className="form-actions">
-            <button type="submit" className="modal-btn modal-btn-primary">
-              <Icon name="message" className="modal-btn-icon" />
-              Send Enquiry
-            </button>
-            <button type="button" className="modal-btn modal-btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   );
@@ -398,25 +365,25 @@ const CORE_LINES = [
     icon: 'hydraulic',
     title: 'Hydraulic Systems',
     body: 'Cylinders, pumps and power packs machined to hold pressure, shift after shift.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/10/WR/FF/IQ/11057383/mild-steel-hydraulic-press-brake-machine-500x500.jpg',
+    image: 'https://i.postimg.cc/sxsX9gJK/48f0eb5f-fc3f-4739-88a2-ade77a648e1b.png',
   },
   {
     icon: 'biomass',
     title: 'Biomass Machinery',
     body: 'Wear-resistant parts for shredding, pelletising and processing plant biomass.',
-    image: '/images/biomass-machinery.jpg',
+    image: 'https://i.postimg.cc/W4qhsK37/7ec259ad-79f2-4f72-844c-81da41ab3a2c.png',
   },
   {
     icon: 'shredder',
     title: 'Shredder Parts',
     body: 'Blades, rotors and liners hardened for high-load, continuous-duty cutting.',
-    image: '/images/shredder-parts.jpg',
+    image: 'https://i.postimg.cc/wjG18H6X/4b16d519-8dde-4d8e-9a97-28b9480915ff.png',
   },
   {
     icon: 'support',
     title: 'And Beyond',
     body: 'Custom fabrication and spares for machinery that falls outside a catalogue.',
-    image: '/images/custom-fabrication.jpg',
+    image: 'https://i.postimg.cc/Hs3JzXRF/2bbb0603-8fd7-4c41-a045-13b86582d590.png',
   },
 ];
 
@@ -427,55 +394,43 @@ const TRUST_STATS = [
   { value: '24/7', label: 'Service Support', mono: 'SI-SVC', icon: 'support' },
 ];
 
-// Sample additional image data for products
-const PRODUCT_IMAGES = {
-  'Hydraulic Cylinder': '/images/hydraulic-cylinder.jpg',
-  'Biomass Shredder': '/images/biomass-shredder.jpg',
-  'Industrial Pump': '/images/industrial-pump.jpg',
-};
-
 export default function Home() {
   const { data } = useData();
   const { products = [], reviews = [], upcomingSites = [] } = data || {};
   
   // Modal states
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showEnquiry, setShowEnquiry] = useState(false);
-  const [enquiryProduct, setEnquiryProduct] = useState(null);
 
+  // Get random 6 products (prioritize featured ones first)
   const featuredProducts = products.filter(
     (p) => p.Featured === true || p.Featured === 'TRUE'
   );
+  
+  const nonFeaturedProducts = products.filter(
+    (p) => p.Featured !== true && p.Featured !== 'TRUE'
+  );
 
-  // Add fallback images if product has no image
-  const productsWithImages = featuredProducts.map(product => ({
-    ...product,
-    Image: product.Image || PRODUCT_IMAGES[product.Name] || '/images/placeholder-product.jpg'
-  }));
+  // Combine: all featured + random from non-featured to make 6 total
+  let selectedProducts = [...featuredProducts];
+  if (selectedProducts.length < 6) {
+    const remaining = 6 - selectedProducts.length;
+    const randomNonFeatured = getRandomItems(nonFeaturedProducts, remaining);
+    selectedProducts = [...selectedProducts, ...randomNonFeatured];
+  } else {
+    // If more than 6 featured, pick random 6 from featured
+    selectedProducts = getRandomItems(featuredProducts, 6);
+  }
 
-  const latestReviews = reviews.slice(0, 3);
+  // Get random 3 reviews
+  const randomReviews = getRandomItems(reviews, 3);
 
   // Handlers
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
-    setShowEnquiry(false);
-  };
-
-  const handleEnquire = (product) => {
-    setEnquiryProduct(product);
-    setShowEnquiry(true);
-    setSelectedProduct(null);
-  };
-
-  const handleEnquirySubmit = (data) => {
-    console.log('Enquiry submitted:', data);
-    // You can add API call here
   };
 
   const closeAllModals = () => {
     setSelectedProduct(null);
-    setShowEnquiry(false);
-    setEnquiryProduct(null);
   };
 
   return (
@@ -577,11 +532,11 @@ export default function Home() {
             </ul>
           </Reveal>
           <Reveal className="about-image-wrap" delay="0.1s">
-          <img
-    src="https://5.imimg.com/data5/SELLER/Default/2021/10/RA/TP/FF/11057383/mild-steel-angle-cutting-machine-500x500.jpg"
-    alt="Shiva Industry - Heavy Machinery Manufacturing"
-    className="about-image"
-/>
+            <img
+              src="https://5.imimg.com/data5/SELLER/Default/2021/10/RA/TP/FF/11057383/mild-steel-angle-cutting-machine-500x500.jpg"
+              alt="Shiva Industry - Heavy Machinery Manufacturing"
+              className="about-image"
+            />
             <div className="about-image-overlay">
               <h4 className="overlay-title">20+ Years of Excellence</h4>
               <p className="overlay-sub">Precision Engineering • Quality Assured</p>
@@ -619,7 +574,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS */}
+      {/* FEATURED PRODUCTS - Random 6 with Tabular Format */}
       <section className="section products">
         <div className="container">
           <Reveal className="section-head section-head--split">
@@ -632,43 +587,76 @@ export default function Home() {
             </a>
           </Reveal>
 
-          {productsWithImages.length > 0 ? (
+          {selectedProducts.length > 0 ? (
             <div className="product-grid">
-              {productsWithImages.map((product, i) => (
-                <Reveal key={product.ID} delay={`${i * 0.06}s`}>
-                  <div className="product-card">
-                    {product.Image && (
-                      <div className="product-image-wrap">
-                        <img src={product.Image} alt={product.Name} className="product-image" />
-                        {product.Category && (
-                          <span className="tag tag--orange">{product.Category}</span>
+              {selectedProducts.map((product, i) => {
+                const parsedData = product.Description ? parseSpecs(product.Description) : null;
+                const hasSpecs = parsedData && Object.keys(parsedData.specs).length > 0;
+                const specsEntries = hasSpecs ? Object.entries(parsedData.specs) : [];
+
+                return (
+                  <Reveal key={product.ID || i} delay={`${i * 0.06}s`}>
+                    <div className="product-card">
+                      {product.Image && (
+                        <div className="product-image-wrap">
+                          <img src={product.Image} alt={product.Name} className="product-image" />
+                          {product.Category && (
+                            <span className="tag tag--orange">{product.Category}</span>
+                          )}
+                          {product.Featured === true && (
+                            <span className="tag tag--featured">
+                              <Icon name="star" className="featured-icon-small" />
+                              Featured
+                            </span>
+                          )}
+                          <div className="product-image-overlay">
+                            <button 
+                              className="product-view-btn"
+                              onClick={() => handleViewDetails(product)}
+                            >
+                              View Details
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                      <div className="product-content">
+                        <h3>{product.Name}</h3>
+                        
+                        {/* Specifications in Tabular Format - Default View */}
+                        {hasSpecs && (
+                          <div className="product-specs-table">
+                            {specsEntries.slice(0, 4).map(([key, value]) => (
+                              <div key={key} className="product-spec-row">
+                                <span className="product-spec-label">{key}</span>
+                                <span className="product-spec-value">{value}</span>
+                              </div>
+                            ))}
+                            {specsEntries.length > 4 && (
+                              <div className="product-spec-more">
+                                +{specsEntries.length - 4} more specs
+                              </div>
+                            )}
+                          </div>
                         )}
-                        <div className="product-image-overlay">
+
+                        {!hasSpecs && product.Description && (
+                          <p className="product-description">{product.Description}</p>
+                        )}
+
+                        <div className="product-meta">
+                          <span className="product-price">{product.Price}</span>
                           <button 
-                            className="product-view-btn"
+                            className="product-enquire-btn"
                             onClick={() => handleViewDetails(product)}
                           >
                             View Details
                           </button>
                         </div>
                       </div>
-                    )}
-                    <div className="product-content">
-                      <h3>{product.Name}</h3>
-                      <p className="product-description">{product.Description}</p>
-                      <div className="product-meta">
-                        <span className="product-price">{product.Price}</span>
-                        <button 
-                          className="product-enquire-btn"
-                          onClick={() => handleEnquire(product)}
-                        >
-                          Enquire
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                </Reveal>
-              ))}
+                  </Reveal>
+                );
+              })}
             </div>
           ) : (
             <p className="no-data">No featured products yet — check back soon.</p>
@@ -705,8 +693,8 @@ export default function Home() {
         </section>
       )}
 
-      {/* TESTIMONIALS */}
-      {latestReviews.length > 0 && (
+      {/* TESTIMONIALS - Random 3 */}
+      {randomReviews.length > 0 && (
         <section className="section reviews">
           <div className="container">
             <Reveal className="section-head">
@@ -714,8 +702,8 @@ export default function Home() {
               <h2 className="section-title section-title--light">Trusted where it runs hard.</h2>
             </Reveal>
             <div className="reviews-grid">
-              {latestReviews.map((review, i) => (
-                <Reveal key={review.ID} delay={`${i * 0.08}s`}>
+              {randomReviews.map((review, i) => (
+                <Reveal key={review.ID || i} delay={`${i * 0.08}s`}>
                   <div className="review-card">
                     <div className="review-header">
                       <div className="review-rating" aria-label={`${review.Rating} out of 5 stars`}>
@@ -759,30 +747,21 @@ export default function Home() {
             </p>
           </div>
           <div className="cta-actions">
-            <a href="tel:+911234567890" className="btn btn--outline-light">
-              <Icon name="truck" className="btn-icon" /> +91 12345 67890
+            <a href="tel:+919216800934" className="btn btn--outline-light">
+              <Icon name="phone" className="btn-icon" /> Call Now
             </a>
-            <a href="/contact" className="btn btn--primary">
-              Send Enquiry
+            <a href="https://wa.me/919216800934" target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+              <Icon name="whatsapp" className="btn-icon" /> WhatsApp
             </a>
           </div>
         </div>
       </section>
 
-      {/* Modals */}
+      {/* Product Detail Modal */}
       {selectedProduct && (
         <ProductModal 
           product={selectedProduct} 
           onClose={closeAllModals}
-          onEnquire={handleEnquire}
-        />
-      )}
-      
-      {showEnquiry && enquiryProduct && (
-        <EnquiryModal 
-          product={enquiryProduct} 
-          onClose={closeAllModals}
-          onSubmit={handleEnquirySubmit}
         />
       )}
     </div>

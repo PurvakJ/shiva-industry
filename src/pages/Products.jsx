@@ -72,7 +72,7 @@ function Icon({ name, className }) {
             width="3"
             height="5"
             rx="0.5"
-            transform={`rotate(${i * 45} 12 12)`}
+            transform={`rotate(${i * 45} 12 12}`}
           />
         ))}
       </>
@@ -158,6 +158,24 @@ function Icon({ name, className }) {
         <line x1="12" y1="8" x2="12" y2="12" />
         <line x1="12" y1="16" x2="12.01" y2="16" />
       </>
+    ),
+    arrowLeft: (
+      <>
+        <path d="M19 12H5" />
+        <path d="M12 19l-7-7 7-7" />
+      </>
+    ),
+    arrowRight: (
+      <>
+        <path d="M5 12h14" />
+        <path d="M12 5l7 7-7 7" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
     )
   };
   return (
@@ -217,8 +235,54 @@ function Reveal({ as: Tag = 'div', className = '', delay, children }) {
   );
 }
 
-/* Product Detail Modal */
-function ProductModal({ product, onClose, onEnquire }) {
+/* Helper function to parse specifications from description */
+function parseSpecs(description) {
+  if (!description) return { specs: {}, descriptionText: '' };
+  const lines = description.split('\n').filter(line => line.trim());
+  const specs = {};
+  let descriptionText = '';
+  
+  lines.forEach(line => {
+    const match = line.match(/^([^:]+):\s*(.+)$/);
+    if (match) {
+      specs[match[1].trim()] = match[2].trim();
+    } else {
+      descriptionText += line + ' ';
+    }
+  });
+  
+  return { specs, descriptionText: descriptionText.trim() };
+}
+
+/* Contact Phone Number Component */
+function ContactPhone() {
+  const phoneNumber = '+91 92168 00934';
+  const phoneLink = 'tel:+919216800934';
+  
+  return (
+    <div className="contact-phone-card">
+      <div className="contact-phone-icon">
+        <Icon name="phone" className="phone-icon" />
+      </div>
+      <div className="contact-phone-content">
+        <span className="contact-phone-label">Call for Enquiry</span>
+        <a href={phoneLink} className="contact-phone-number">
+          {phoneNumber}
+        </a>
+        <a href={`https://wa.me/919216800934`} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" className="whatsapp-icon" />
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* Product Detail Page Component */
+function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
+  const parsedData = product?.Description ? parseSpecs(product.Description) : null;
+  const hasSpecs = parsedData && Object.keys(parsedData.specs).length > 0;
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose();
@@ -233,207 +297,148 @@ function ProductModal({ product, onClose, onEnquire }) {
 
   if (!product) return null;
 
+  // Filter related products (exclude current product)
+  const filteredRelated = relatedProducts.filter(p => p.ID !== product.ID && p.Name !== product.Name);
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">
-          <Icon name="close" className="modal-close-icon" />
+    <div className="product-detail-overlay" onClick={onClose}>
+      <div className="product-detail-page" onClick={(e) => e.stopPropagation()}>
+        <button className="detail-close" onClick={onClose} aria-label="Close">
+          <Icon name="close" className="detail-close-icon" />
         </button>
-        
-        <div className="modal-grid">
-          {product.Image && (
-            <div className="modal-image-wrap">
-              <img src={product.Image} alt={product.Name} className="modal-image" />
+
+        <div className="detail-container">
+          {/* Main Content */}
+          <div className="detail-main">
+            {/* Image Section */}
+            <div className="detail-image-section">
+              {product.Image && (
+                <img src={product.Image} alt={product.Name} className="detail-main-image" />
+              )}
               {product.Featured === true && (
-                <span className="featured-badge">
+                <span className="detail-featured-badge">
                   <Icon name="star" className="featured-icon" />
                   Featured
                 </span>
               )}
             </div>
-          )}
-          
-          <div className="modal-details">
-            <div className="modal-header">
-              <h2 className="modal-title">{product.Name}</h2>
-              {product.Category && (
-                <span className="modal-category">{product.Category}</span>
-              )}
-            </div>
 
-            <div className="modal-meta">
-              {product.Price && (
-                <div className="modal-price">{product.Price}</div>
-              )}
-              {product.Stock !== undefined && (
-                <div className={`modal-stock ${product.Stock === 0 ? 'out-of-stock' : product.Stock <= 5 ? 'low-stock' : 'in-stock'}`}>
-                  {product.Stock === 0 ? 'Out of Stock' : 
-                   product.Stock <= 5 ? `Only ${product.Stock} left` : 
-                   `${product.Stock} in stock`}
-                </div>
-              )}
-            </div>
-
-            <div className="modal-description">
-              <h4>Description</h4>
-              <p>{product.Description || 'No description available.'}</p>
-            </div>
-
-            {product.Specifications && Object.keys(product.Specifications).length > 0 && (
-              <div className="modal-specs">
-                <h4>Specifications</h4>
-                <div className="specs-grid">
-                  {Object.entries(product.Specifications).map(([key, value]) => (
-                    <div key={key} className="spec-item">
-                      <span className="spec-label">{key}</span>
-                      <span className="spec-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Info Section */}
+            <div className="detail-info-section">
+              <div className="detail-header">
+                <h1 className="detail-title">{product.Name}</h1>
+                {product.Category && (
+                  <span className="detail-category">{product.Category}</span>
+                )}
               </div>
-            )}
 
-            <div className="modal-actions">
-              <button 
-                className="modal-btn modal-btn-primary"
-                onClick={() => onEnquire(product)}
-              >
-                <Icon name="message" className="modal-btn-icon" />
-                Enquire Now
-              </button>
-              <button 
-                className="modal-btn modal-btn-secondary"
-                onClick={onClose}
-              >
-                Close
-              </button>
+              <div className="detail-meta">
+                {product.Price && (
+                  <div className="detail-price">{product.Price}</div>
+                )}
+                {product.Stock !== undefined && (
+                  <div className={`detail-stock ${product.Stock === 0 ? 'out-of-stock' : product.Stock <= 5 ? 'low-stock' : 'in-stock'}`}>
+                    {product.Stock === 0 ? 'Out of Stock' : 
+                     product.Stock <= 5 ? `Only ${product.Stock} left` : 
+                     `${product.Stock} in stock`}
+                  </div>
+                )}
+              </div>
+
+              {/* Specifications Table */}
+              {hasSpecs && (
+                <div className="detail-specs-wrap">
+                  <h3>Specifications</h3>
+                  <div className="detail-specs-table">
+                    {Object.entries(parsedData.specs).map(([key, value]) => (
+                      <div key={key} className="detail-spec-row">
+                        <span className="detail-spec-label">{key}</span>
+                        <span className="detail-spec-value">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Description */}
+              {parsedData?.descriptionText && (
+                <div className="detail-description">
+                  <h3>Description</h3>
+                  <p>{parsedData.descriptionText}</p>
+                </div>
+              )}
+
+              {!hasSpecs && product.Description && (
+                <div className="detail-description">
+                  <h3>Description</h3>
+                  <p>{product.Description}</p>
+                </div>
+              )}
+
+              <div className="detail-actions">
+                <ContactPhone />
+                <button 
+                  className="detail-btn detail-btn-secondary"
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
+
+          {/* Related Products */}
+          {filteredRelated.length > 0 && (
+            <div className="detail-related">
+              <h2 className="related-title">Related Products</h2>
+              <div className="related-grid">
+                {filteredRelated.slice(0, 4).map((related) => {
+                  const relatedParsed = related.Description ? parseSpecs(related.Description) : null;
+                  const relatedSpecs = relatedParsed && Object.keys(relatedParsed.specs).length > 0;
+                  
+                  return (
+                    <div key={related.ID || related.id} className="related-card" onClick={() => {
+                      // You can implement navigation to view this product
+                      // For now, just close and you can add logic to open new product
+                      onClose();
+                    }}>
+                      {related.Image && (
+                        <div className="related-image-wrap">
+                          <img src={related.Image} alt={related.Name} className="related-image" />
+                          {related.Featured === true && (
+                            <span className="related-featured">Featured</span>
+                          )}
+                        </div>
+                      )}
+                      <div className="related-content">
+                        <h4>{related.Name}</h4>
+                        {related.Category && (
+                          <span className="related-category">{related.Category}</span>
+                        )}
+                        {relatedSpecs && (
+                          <div className="related-specs-preview">
+                            {Object.entries(relatedParsed.specs).slice(0, 2).map(([key, value]) => (
+                              <div key={key} className="related-spec-item">
+                                <span className="related-spec-label">{key}:</span>
+                                <span className="related-spec-value">{value}</span>
+                              </div>
+                            ))}
+                            {Object.keys(relatedParsed.specs).length > 2 && (
+                              <span className="related-more">+{Object.keys(relatedParsed.specs).length - 2} more</span>
+                            )}
+                          </div>
+                        )}
+                        {related.Price && (
+                          <div className="related-price">{related.Price}</div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* Enquiry Modal */
-function EnquiryModal({ product, onClose, onSubmit }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    productName: product?.Name || ''
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log('Enquiry submitted:', formData);
-    setSubmitted(true);
-    onSubmit(formData);
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  if (!product) return null;
-
-  if (submitted) {
-    return (
-      <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content enquiry-success" onClick={(e) => e.stopPropagation()}>
-          <div className="success-content">
-            <Icon name="check" className="success-icon" />
-            <h3>Enquiry Sent!</h3>
-            <p>Thank you for your interest in {product.Name}. We'll get back to you within 24 hours.</p>
-            <button className="modal-btn modal-btn-primary" onClick={onClose}>
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content enquiry-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">
-          <Icon name="close" className="modal-close-icon" />
-        </button>
-        
-        <div className="enquiry-header">
-          <h3>Enquire about {product.Name}</h3>
-          <p>Fill in your details and we'll get back to you shortly.</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="enquiry-form">
-          <div className="form-group">
-            <label htmlFor="name">Full Name *</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              placeholder="John Doe"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email Address *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="john@example.com"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+1 234 567 890"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Message *</label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows="4"
-              placeholder={`I'm interested in the ${product.Name}. Please provide more information.`}
-            />
-          </div>
-
-          <div className="form-actions">
-            <button type="submit" className="modal-btn modal-btn-primary">
-              <Icon name="message" className="modal-btn-icon" />
-              Send Enquiry
-            </button>
-            <button type="button" className="modal-btn modal-btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   );
@@ -449,13 +454,9 @@ export default function Products() {
   
   // Modal states
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showEnquiry, setShowEnquiry] = useState(false);
-  const [enquiryProduct, setEnquiryProduct] = useState(null);
 
-  // Extract unique categories
   const categories = ['all', ...new Set(products.map(p => p.Category).filter(Boolean))];
 
-  // Filter and search products
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === 'all' || product.Category === selectedCategory;
     const matchesSearch = product.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -463,7 +464,6 @@ export default function Products() {
     return matchesCategory && matchesSearch;
   });
 
-  // Sort products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === 'name') return a.Name.localeCompare(b.Name);
     if (sortBy === 'price') {
@@ -475,33 +475,17 @@ export default function Products() {
     return 0;
   });
 
-  // Get category count
   const getCategoryCount = (category) => {
     if (category === 'all') return products.length;
     return products.filter(p => p.Category === category).length;
   };
 
-  // Handlers
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
-    setShowEnquiry(false);
-  };
-
-  const handleEnquire = (product) => {
-    setEnquiryProduct(product);
-    setShowEnquiry(true);
-    setSelectedProduct(null);
-  };
-
-  const handleEnquirySubmit = (data) => {
-    console.log('Enquiry submitted:', data);
-    // You can add API call here
   };
 
   const closeAllModals = () => {
     setSelectedProduct(null);
-    setShowEnquiry(false);
-    setEnquiryProduct(null);
   };
 
   return (
@@ -611,62 +595,83 @@ export default function Products() {
 
               {/* Product Grid/List */}
               <div className={`product-container ${viewMode}`}>
-                {sortedProducts.map((product, index) => (
-                  <Reveal key={product.ID || product.id || index} delay={`${(index % 6) * 0.05}s`}>
-                    <div className={`product-card ${viewMode}`}>
-                      {product.Image && (
-                        <div className="product-image-wrap">
-                          <img 
-                            src={product.Image} 
-                            alt={product.Name} 
-                            className="product-image" 
-                            loading="lazy"
-                          />
-                          {product.Featured === true && (
-                            <span className="featured-badge">
-                              <Icon name="star" className="featured-icon" />
-                              Featured
-                            </span>
+                {sortedProducts.map((product, index) => {
+                  const parsedData = product.Description ? parseSpecs(product.Description) : null;
+                  const hasSpecs = parsedData && Object.keys(parsedData.specs).length > 0;
+                  const specsEntries = hasSpecs ? Object.entries(parsedData.specs) : [];
+
+                  return (
+                    <Reveal key={product.ID || product.id || index} delay={`${(index % 6) * 0.05}s`}>
+                      <div className={`product-card ${viewMode}`}>
+                        {product.Image && (
+                          <div className="product-image-wrap">
+                            <img 
+                              src={product.Image} 
+                              alt={product.Name} 
+                              className="product-image" 
+                              loading="lazy"
+                            />
+                            {product.Featured === true && (
+                              <span className="featured-badge">
+                                <Icon name="star" className="featured-icon" />
+                                Featured
+                              </span>
+                            )}
+                            {product.Stock !== undefined && product.Stock <= 5 && product.Stock > 0 && (
+                              <span className="stock-badge low-stock">Low Stock</span>
+                            )}
+                            {product.Stock === 0 && (
+                              <span className="stock-badge out-of-stock">Out of Stock</span>
+                            )}
+                          </div>
+                        )}
+                        <div className="product-content">
+                          <div className="product-header">
+                            <h3>{product.Name}</h3>
+                            {product.Category && (
+                              <span className="product-category">{product.Category}</span>
+                            )}
+                          </div>
+
+                          {/* Specifications in Tabular Format */}
+                          {hasSpecs && (
+                            <div className="product-specs-table">
+                              {specsEntries.slice(0, 4).map(([key, value]) => (
+                                <div key={key} className="product-spec-row">
+                                  <span className="product-spec-label">{key}</span>
+                                  <span className="product-spec-value">{value}</span>
+                                </div>
+                              ))}
+                              {specsEntries.length > 4 && (
+                                <div className="product-spec-more">
+                                  +{specsEntries.length - 4} more specs
+                                </div>
+                              )}
+                            </div>
                           )}
-                          {product.Stock !== undefined && product.Stock <= 5 && product.Stock > 0 && (
-                            <span className="stock-badge low-stock">Low Stock</span>
+
+                          {!hasSpecs && product.Description && (
+                            <p className="product-description">{product.Description}</p>
                           )}
-                          {product.Stock === 0 && (
-                            <span className="stock-badge out-of-stock">Out of Stock</span>
-                          )}
-                        </div>
-                      )}
-                      <div className="product-content">
-                        <div className="product-header">
-                          <h3>{product.Name}</h3>
-                          {product.Category && (
-                            <span className="product-category">{product.Category}</span>
-                          )}
-                        </div>
-                        <p className="product-description">{product.Description}</p>
-                        <div className="product-footer">
-                          {product.Price && (
-                            <span className="product-price">{product.Price}</span>
-                          )}
-                          <div className="product-actions">
-                            <button 
-                              className="product-btn view-btn-action"
-                              onClick={() => handleViewDetails(product)}
-                            >
-                              View Details
-                            </button>
-                            <button 
-                              className="product-btn enquiry-btn"
-                              onClick={() => handleEnquire(product)}
-                            >
-                              Enquire
-                            </button>
+
+                          <div className="product-footer">
+                            {product.Price && (
+                              <span className="product-price">{product.Price}</span>
+                            )}
+                            <div className="product-actions">
+                              <button 
+                                className="product-btn view-btn-action"
+                                onClick={() => handleViewDetails(product)}
+                              >
+                                View Details
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Reveal>
-                ))}
+                    </Reveal>
+                  );
+                })}
               </div>
 
               {/* No Results */}
@@ -728,20 +733,12 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Modals */}
+      {/* Product Detail Page */}
       {selectedProduct && (
-        <ProductModal 
+        <ProductDetailPage 
           product={selectedProduct} 
           onClose={closeAllModals}
-          onEnquire={handleEnquire}
-        />
-      )}
-      
-      {showEnquiry && enquiryProduct && (
-        <EnquiryModal 
-          product={enquiryProduct} 
-          onClose={closeAllModals}
-          onSubmit={handleEnquirySubmit}
+          relatedProducts={products}
         />
       )}
     </div>
