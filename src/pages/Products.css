@@ -1939,3 +1939,1650 @@
   }
 }
 
+/* ============ Location Section ============ */
+.location-section {
+  background: var(--warm-white);
+  padding: 4rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.location-badges-wrapper {
+  text-align: center;
+}
+
+.location-badges-wrapper h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin: 0 0 2rem;
+  color: var(--ink);
+}
+
+.location-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.location-badge-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: all 0.3s ease;
+}
+
+.location-badge-item:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(28, 34, 38, 0.08);
+}
+
+.location-badge-item .location-icon {
+  font-size: 1.5rem;
+}
+
+/* ============ CTA Contact Info ============ */
+.cta-contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.cta-phone,
+.cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--warm-white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(245, 243, 238, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.cta-phone:hover,
+.cta-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 243, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+.cta-icon {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+.cta-divider {
+  color: rgba(245, 243, 238, 0.3);
+}
+
+/* ============ Products Hero Contact ============ */
+.products-hero-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.products-hero-phone,
+.products-hero-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--silver-light);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(245, 243, 238, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.products-hero-phone:hover,
+.products-hero-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(245, 243, 238, 0.2);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.products-hero-phone-icon,
+.products-hero-whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+.products-hero-divider {
+  color: rgba(245, 243, 238, 0.2);
+}
+
+/* ============ Modal (Enquiry) ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: var(--warm-white-light);
+  border-radius: 12px;
+  max-width: 580px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: sticky;
+  top: 0.75rem;
+  right: 0.75rem;
+  float: right;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  margin: 0.75rem 0.75rem 0 0;
+}
+
+.modal-close:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+  transform: rotate(90deg);
+}
+
+.modal-close:hover .modal-close-icon {
+  color: white;
+}
+
+.modal-close-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+/* Enquiry Success */
+.enquiry-success {
+  max-width: 500px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  color: #22c55e;
+}
+
+.success-content h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.success-content p {
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+/* Enquiry Form */
+.enquiry-modal {
+  padding: 0;
+}
+
+.enquiry-header {
+  padding: 2rem 2rem 0;
+}
+
+.enquiry-header h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+.enquiry-header p {
+  color: var(--ink-light);
+  margin: 0;
+}
+
+.enquiry-form {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  color: var(--ink-light);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(224, 97, 28, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: white;
+  color: var(--ink);
+}
+
+.modal-btn-primary {
+  background: var(--orange);
+  color: white;
+  border-color: var(--orange);
+  flex: 1;
+}
+
+.modal-btn-primary:hover {
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(224, 97, 28, 0.3);
+}
+
+.modal-btn-secondary {
+  background: transparent;
+  color: var(--ink-light);
+}
+
+.modal-btn-secondary:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.modal-btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.form-actions .modal-btn {
+  flex: 1;
+}
+
+/* ============ Detail Location Info ============ */
+.detail-location-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  background: var(--warm-white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+.detail-location-info .location-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+/* ============ Accessibility & Utility ============ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============ Additional Responsive Fixes ============ */
+@media (max-width: 768px) {
+  .location-badges-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .location-badge-item {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .cta-contact-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-divider {
+    display: none;
+  }
+
+  .products-hero-contact {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .products-hero-phone,
+  .products-hero-whatsapp {
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .products-hero-divider {
+    display: none;
+  }
+
+  .enquiry-form {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .enquiry-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+
+  .modal-close-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    border-radius: 8px;
+  }
+
+  .detail-location-info {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-badges-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .location-badge-item {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .location-badge-item .location-icon {
+    font-size: 1.2rem;
+  }
+
+  .location-badges-wrapper h3 {
+    font-size: 1.4rem;
+  }
+
+  .modal-content {
+    max-height: 98vh;
+    border-radius: 6px;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .enquiry-success {
+    padding: 2rem 1.5rem;
+  }
+
+  .success-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .detail-location-info {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* ============ Scrollbar Styling ============ */
+.products-page::-webkit-scrollbar {
+  width: 8px;
+}
+
+.products-page::-webkit-scrollbar-track {
+  background: var(--warm-white);
+}
+
+.products-page::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 4px;
+}
+
+.products-page::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-dark);
+}
+
+/* ============ Print Styles ============ */
+@media print {
+  .products-page {
+    background: white;
+    color: black;
+  }
+
+  .products-hero,
+  .products-cta,
+  .location-section,
+  .product-detail-overlay {
+    background: white !important;
+    color: black !important;
+  }
+
+  .products-hero-title {
+    color: black !important;
+  }
+
+  .btn,
+  .product-btn,
+  .detail-btn,
+  .modal-btn {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .product-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .product-image-wrap {
+    break-inside: avoid;
+  }
+
+  .product-detail-overlay {
+    position: static;
+    backdrop-filter: none;
+    padding: 0;
+  }
+
+  .product-detail-page {
+    max-height: none;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .detail-close {
+    display: none;
+  }
+
+  .contact-phone-card {
+    border-color: #ddd;
+  }
+
+  .no-results,
+  .no-products {
+    border-color: #ddd;
+  }
+}
+
+/* ============ Location Section - Fixed Alignment ============ */
+.location-section {
+  background: var(--warm-white);
+  padding: 4rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.location-badges-wrapper {
+  text-align: center;
+}
+
+.location-badges-wrapper .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.location-badges-wrapper h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin: 0 0 2.5rem;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.location-badges-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.location-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.location-badge-item:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(28, 34, 38, 0.08);
+}
+
+.location-badge-item .location-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ============ CTA Section - Fixed Alignment ============ */
+.products-cta {
+  position: relative;
+  background: var(--orange);
+  color: var(--warm-white);
+  padding: 4rem 0;
+  overflow: hidden;
+}
+
+.products-cta .cta-hazard {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0,0,0,0.06),
+    rgba(0,0,0,0.06) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+}
+
+.products-cta .cta-inner {
+  position: relative;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.products-cta .eyebrow {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.products-cta .cta-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin: 0 0 0.75rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.products-cta .cta-copy {
+  color: rgba(245, 243, 238, 0.9);
+  max-width: 40ch;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* CTA Contact Info - Centered */
+.cta-contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.cta-phone,
+.cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--warm-white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(245, 243, 238, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.cta-phone:hover,
+.cta-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 243, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+.cta-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.cta-divider {
+  color: rgba(245, 243, 238, 0.25);
+  font-size: 1.2rem;
+}
+
+/* CTA Buttons - Centered */
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-actions .btn {
+  min-width: 160px;
+  justify-content: center;
+}
+
+/* ============ Hero Contact - Fixed Alignment ============ */
+.products-hero-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.products-hero-phone,
+.products-hero-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--silver-light);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(245, 243, 238, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.products-hero-phone:hover,
+.products-hero-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(245, 243, 238, 0.2);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.products-hero-phone-icon,
+.products-hero-whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.products-hero-divider {
+  color: rgba(245, 243, 238, 0.2);
+  font-size: 1.1rem;
+}
+
+/* ============ Responsive Fixes ============ */
+@media (max-width: 768px) {
+  /* Location Section */
+  .location-badges-grid {
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .location-badge-item {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    white-space: normal;
+  }
+
+  .location-badges-wrapper h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* CTA Section */
+  .cta-contact-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .cta-divider {
+    display: none;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cta-actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Hero Contact */
+  .products-hero-contact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .products-hero-phone,
+  .products-hero-whatsapp {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .products-hero-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Location Section */
+  .location-badges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    max-width: 400px;
+  }
+
+  .location-badge-item {
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .location-badge-item .location-icon {
+    font-size: 1rem;
+  }
+
+  .location-badges-wrapper h3 {
+    font-size: 1.2rem;
+  }
+
+  /* CTA Section */
+  .products-cta {
+    padding: 3rem 0;
+  }
+
+  .products-cta .cta-title {
+    font-size: 1.4rem;
+  }
+
+  .products-cta .cta-copy {
+    font-size: 0.95rem;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-contact-info {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-actions .btn {
+    max-width: 100%;
+    font-size: 0.75rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  /* Hero Contact */
+  .products-hero-contact {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .products-hero-phone,
+  .products-hero-whatsapp {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============ Fix for Contact Phone Card ============ */
+.contact-phone-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: white;
+  border: 2px solid var(--orange);
+  border-radius: 8px;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.contact-phone-card:hover {
+  box-shadow: 0 4px 20px rgba(224, 97, 28, 0.15);
+  transform: translateY(-2px);
+}
+
+.contact-phone-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--orange);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.phone-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.contact-phone-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+
+.contact-phone-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-light);
+}
+
+.contact-phone-number {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--orange);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-phone-number.secondary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-light);
+}
+
+.contact-phone-number:hover {
+  color: var(--orange-dark);
+}
+
+.contact-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.8rem;
+  background: #25D366;
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  width: fit-content;
+  margin-top: 0.15rem;
+}
+
+.contact-whatsapp-btn:hover {
+  background: #1da851;
+  transform: scale(1.03);
+}
+
+.whatsapp-icon {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+/* Responsive Contact Phone Card */
+@media (max-width: 768px) {
+  .contact-phone-card {
+    flex-direction: row;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-phone-content {
+    align-items: flex-start;
+  }
+
+  .contact-phone-number {
+    font-size: 1rem;
+  }
+
+  .contact-phone-number.secondary {
+    font-size: 0.85rem;
+  }
+
+  .contact-whatsapp-btn {
+    width: auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-phone-card {
+    padding: 0.6rem 0.75rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-phone-content {
+    align-items: center;
+  }
+
+  .contact-phone-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .phone-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-phone-number {
+    font-size: 0.9rem;
+  }
+
+  .contact-phone-number.secondary {
+    font-size: 0.8rem;
+  }
+
+  .contact-whatsapp-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.6rem;
+  }
+}
+
+/* ============ Products CTA Section - Fully Centered ============ */
+.products-cta {
+  position: relative;
+  background: var(--orange);
+  color: var(--warm-white);
+  padding: 5rem 0;
+  overflow: hidden;
+}
+
+.products-cta .cta-hazard {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0,0,0,0.06),
+    rgba(0,0,0,0.06) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+  pointer-events: none;
+}
+
+.products-cta .cta-inner {
+  position: relative;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-cta .eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.products-cta .cta-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 0.75rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  letter-spacing: 0.02em;
+}
+
+.products-cta .cta-copy {
+  color: rgba(245, 243, 238, 0.92);
+  max-width: 45ch;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* CTA Contact Info - Centered properly */
+.cta-contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+}
+
+.cta-phone,
+.cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  color: var(--warm-white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid rgba(245, 243, 238, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  min-width: 160px;
+}
+
+.cta-phone:hover,
+.cta-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 243, 238, 0.4);
+  transform: translateY(-3px);
+}
+
+.cta-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.cta-divider {
+  color: rgba(245, 243, 238, 0.2);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* CTA Buttons - Centered */
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cta-actions .btn {
+  min-width: 180px;
+  justify-content: center;
+  padding: 0.9rem 2rem;
+  font-size: 0.8rem;
+}
+
+.btn--primary {
+  background: var(--warm-white);
+  color: var(--orange);
+  border: 1px solid var(--warm-white);
+}
+
+.btn--primary:hover {
+  background: transparent;
+  color: var(--warm-white);
+  border-color: var(--warm-white);
+  transform: translateY(-2px);
+}
+
+.btn--outline-light {
+  background: transparent;
+  color: var(--warm-white);
+  border: 1px solid rgba(245, 243, 238, 0.4);
+}
+
+.btn--outline-light:hover {
+  background: var(--warm-white);
+  color: var(--ink);
+  border-color: var(--warm-white);
+  transform: translateY(-2px);
+}
+
+/* ============ Footer Styles (Global) ============ */
+.footer {
+  background: var(--charcoal);
+  color: var(--warm-white);
+  padding: 4rem 0 0;
+  border-top: 3px solid var(--orange);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1fr;
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-brand h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--warm-white);
+  letter-spacing: 0.02em;
+}
+
+.footer-brand h2 span {
+  color: var(--orange);
+}
+
+.footer-brand p {
+  color: var(--silver);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 35ch;
+  margin: 0;
+}
+
+.footer-column h4 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin: 0 0 1.25rem;
+  color: var(--warm-white);
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-column ul li a {
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.footer-column ul li a:hover {
+  color: var(--orange);
+  padding-left: 4px;
+}
+
+.footer-contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.footer-contact-item strong {
+  color: var(--warm-white);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-contact-item a,
+.footer-contact-item span {
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-item a:hover {
+  color: var(--orange);
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  color: var(--silver);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-social a:hover {
+  background: var(--orange);
+  color: white;
+  transform: translateY(-3px);
+  border-color: var(--orange);
+}
+
+.footer-social .social-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 2rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--silver);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.footer-bottom a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* ============ Responsive Footer ============ */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1.25rem;
+  }
+
+  .footer-brand {
+    text-align: center;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .footer-column {
+    text-align: center;
+  }
+
+  .footer-column ul {
+    align-items: center;
+  }
+
+  .footer-contact-item {
+    align-items: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    padding: 1rem 1.25rem;
+  }
+
+  /* CTA Section */
+  .cta-contact-info {
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 300px;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    width: 100%;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    min-width: auto;
+  }
+
+  .cta-divider {
+    display: none;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-cta {
+    padding: 3rem 0;
+  }
+
+  .products-cta .cta-title {
+    font-size: 1.6rem;
+  }
+
+  .products-cta .cta-copy {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .cta-actions .btn {
+    font-size: 0.7rem;
+    padding: 0.7rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .footer {
+    padding: 2.5rem 0 0;
+  }
+
+  .footer-brand h2 {
+    font-size: 1.4rem;
+  }
+
+  .footer-column h4 {
+    font-size: 0.9rem;
+  }
+
+  .footer-column ul li a,
+  .footer-contact-item a,
+  .footer-contact-item span {
+    font-size: 0.85rem;
+  }
+
+  .footer-social a {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer-social .social-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-bottom p {
+    font-size: 0.75rem;
+  }
+}
+
+/* ============ Products Hero - Fix alignment ============ */
+.products-hero {
+  position: relative;
+  background: var(--charcoal);
+  color: var(--warm-white);
+  padding: 6rem 2rem 4rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.products-hero-inner {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-hero-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  margin: 0 0 1.25rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.products-hero-copy {
+  font-size: 1.1rem;
+  color: var(--silver);
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.products-hero-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.products-hero-phone,
+.products-hero-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--silver-light);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(245, 243, 238, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.products-hero-phone:hover,
+.products-hero-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(245, 243, 238, 0.2);
+  color: white;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .products-hero-contact {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .products-hero-phone,
+  .products-hero-whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .products-hero-divider {
+    display: none;
+  }
+}

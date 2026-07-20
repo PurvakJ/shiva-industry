@@ -14,7 +14,7 @@ export default function Navbar() {
     { path: '/about', label: 'About' },
     { path: '/products', label: 'Products' },
     { path: '/gallery', label: 'Gallery' },
-    { path: '/upcoming-sites', label: 'Upcoming ' },
+    { path: '/upcoming-sites', label: 'Upcoming Sites' },
     { path: '/coming-soon', label: 'Coming Soon' },
     { path: '/reviews', label: 'Reviews' },
     { path: '/contact', label: 'Contact' },
@@ -74,15 +74,8 @@ export default function Navbar() {
           </div>
           <div className="logo-text">
             <span className="logo-brand">SHIVA</span>
-            <span className="logo-industry">INDUSTRY</span>
-          </div>
-          <div className="logo-text">
-            <span className="logo-brand"></span>
-            <span className="logo-industry"></span>
-          </div>
-          <div className="logo-text">
-            <span className="logo-brand"></span>
-            <span className="logo-industry"></span>
+            <span className="logo-industry">HYDRAULIC & BIOMASS</span>
+            <span className="logo-tagline">Industries</span>
           </div>
         </Link>
 
@@ -117,6 +110,7 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* ADMIN link - moved to the end of the list */}
           <li className="navbar-item navbar-item--admin">
             <Link
               to="/admin/login"

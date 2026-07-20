@@ -1,6 +1,58 @@
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { useEffect, useRef, useState } from 'react';
 import './ComingSoon.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'coming soon',
+    'upcoming products',
+    'new innovations',
+    'product development'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Reusing the Icon component from About */
 function Icon({ name, className }) {
@@ -72,7 +124,7 @@ function Icon({ name, className }) {
             width="3"
             height="5"
             rx="0.5"
-            transform={`rotate(${i * 45} 12 12)`}
+            transform={`rotate(${i * 45} 12 12}`}
           />
         ))}
       </>
@@ -151,6 +203,28 @@ function Icon({ name, className }) {
         <circle cx="12" cy="9" r="2" fill="currentColor" stroke="none" />
       </>
     ),
+    phone: (
+      <>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </>
+    ),
+    location: (
+      <>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" fill="currentColor" stroke="none" />
+      </>
+    )
   };
   return (
     <svg
@@ -278,8 +352,67 @@ export default function ComingSoon() {
     categories: new Set(items.map(i => i.category)).size
   };
 
+  // Handle notify click
+  const handleNotify = (itemName) => {
+    const message = `Hi Shiva Industries, I want to get notified about the upcoming product: ${itemName}. Please keep me updated.`;
+    const whatsappUrl = `https://wa.me/919216800934?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="coming-soon-page">
+      <Helmet>
+        <title>Coming Soon | Upcoming Products & Innovations | Shiva Industries</title>
+        <meta name="description" content="Discover upcoming products and innovations from Shiva Hydraulic & Biomass Industries. New hydraulic cylinders, biomass solutions, and industrial innovations coming soon to Sardulgarh, Mansa, and Tibbi." />
+        <meta name="keywords" content={`coming soon, upcoming products, new innovations, product development, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/coming-soon`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Coming Soon | Upcoming Products & Innovations | Shiva Industries" />
+        <meta property="og:description" content="Discover upcoming products and innovations from Shiva Hydraulic & Biomass Industries. New solutions coming soon." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/coming-soon`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Coming Soon | Upcoming Products & Innovations" />
+        <meta name="twitter:description" content="Discover upcoming products and innovations from Shiva Hydraulic & Biomass Industries." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Coming Soon Products",
+            "description": "Upcoming products and innovations from Shiva Hydraulic & Biomass Industries",
+            "url": `https://${siteConfig.domain}/coming-soon`,
+            "about": {
+              "@type": "LocalBusiness",
+              "name": siteConfig.name,
+              "telephone": siteConfig.contact.phone1,
+              "email": siteConfig.contact.email,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sardulgarh",
+                "addressRegion": "Punjab",
+                "addressCountry": "India"
+              }
+            },
+            "hasPart": items.slice(0, 10).map(item => ({
+              "@type": "Product",
+              "name": item.name,
+              "description": item.description,
+              "category": item.category,
+              "potentialAction": {
+                "@type": "OrderAction",
+                "name": "Notify Me"
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="cs-hero">
         <div className="cs-hero-backdrop" aria-hidden="true">
@@ -296,6 +429,17 @@ export default function ComingSoon() {
                 ? "Cutting-edge solutions currently in development — engineered to solve tomorrow's industrial challenges"
                 : "We're developing new products and innovations to power your industry"}
             </p>
+            <div className="cs-hero-contact">
+              <a href={siteConfig.contact.phoneLink1} className="cs-hero-phone">
+                <Icon name="phone" className="cs-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cs-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cs-hero-whatsapp">
+                <Icon name="whatsapp" className="cs-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
 
@@ -370,7 +514,10 @@ export default function ComingSoon() {
                         <Icon name="clock" className="cs-meta-icon" />
                         <span>{item.date}</span>
                       </div>
-                      <button className="cs-notify-btn">
+                      <button 
+                        className="cs-notify-btn"
+                        onClick={() => handleNotify(item.name)}
+                      >
                         <Icon name="handshake" className="cs-btn-icon" />
                         Notify Me
                       </button>
@@ -389,17 +536,38 @@ export default function ComingSoon() {
                 <p>We're currently developing new products and solutions.</p>
                 <p className="cs-empty-subtext">Check back soon for updates on our latest innovations.</p>
                 <div className="cs-empty-actions">
-                  <a href="/contact" className="btn btn--primary">
+                  <Link to="/contact" className="btn btn--primary">
                     <Icon name="handshake" className="btn-icon" />
                     Get Notified
-                  </a>
-                  <a href="/products" className="btn btn--outline">
+                  </Link>
+                  <Link to="/products" className="btn btn--outline">
                     Browse Products
-                  </a>
+                  </Link>
                 </div>
               </div>
             </Reveal>
           )}
+
+          {/* Location Tags */}
+          <Reveal className="cs-location-tags">
+            <div className="location-badges-wrapper">
+              <span className="eyebrow">Manufacturing Locations</span>
+              <div className="location-badges-grid">
+                <span className="location-badge">
+                  <Icon name="location" className="location-icon" />
+                  Sardulgarh
+                </span>
+                <span className="location-badge">
+                  <Icon name="location" className="location-icon" />
+                  Mansa
+                </span>
+                <span className="location-badge">
+                  <Icon name="location" className="location-icon" />
+                  Tibbi
+                </span>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -441,14 +609,25 @@ export default function ComingSoon() {
             <p className="cs-cta-copy">
               Subscribe to get updates on our latest products, innovations, and industry insights.
             </p>
+            <div className="cs-cta-contact-info">
+              <a href={siteConfig.contact.phoneLink1} className="cs-cta-phone">
+                <Icon name="phone" className="cs-cta-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cs-cta-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cs-cta-whatsapp">
+                <Icon name="whatsapp" className="cs-cta-icon" />
+                WhatsApp
+              </a>
+            </div>
             <div className="cs-cta-actions">
-              <a href="/contact" className="btn btn--primary">
+              <Link to="/contact" className="btn btn--primary">
                 <Icon name="star" className="btn-icon" />
                 Subscribe Now
-              </a>
-              <a href="/products" className="btn btn--outline-light">
+              </Link>
+              <Link to="/products" className="btn btn--outline-light">
                 View Products
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>

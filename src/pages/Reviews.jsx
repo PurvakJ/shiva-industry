@@ -1,7 +1,58 @@
+import { Helmet } from 'react-helmet-async';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { api } from '../utils/api';
 import './Reviews.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'reviews',
+    'testimonials',
+    'customer feedback'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Reusing icon component */
 function Icon({ name, className }) {
@@ -46,6 +97,22 @@ function Icon({ name, className }) {
       <>
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+      </>
+    ),
+    phone: (
+      <>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </>
     ),
   };
@@ -172,6 +239,60 @@ export default function Reviews() {
 
   return (
     <div className="reviews-page">
+      <Helmet>
+        <title>Customer Reviews & Testimonials | Shiva Hydraulic & Biomass Industries</title>
+        <meta name="description" content="Read real reviews and testimonials from our satisfied customers. See why clients trust Shiva Industries for hydraulic, biomass, and industrial solutions in Sardulgarh, Mansa, and Tibbi." />
+        <meta name="keywords" content={`customer reviews, testimonials, feedback, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/reviews`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Customer Reviews & Testimonials | Shiva Hydraulic & Biomass Industries" />
+        <meta property="og:description" content="Read real reviews and testimonials from our satisfied customers. See why clients trust Shiva Industries for hydraulic, biomass, and industrial solutions." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/reviews`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Customer Reviews & Testimonials | Shiva Industries" />
+        <meta name="twitter:description" content="Read real reviews and testimonials from our satisfied customers." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "Shiva Hydraulic & Biomass Industries Products",
+            "description": "Industrial hydraulic cylinders, biomass briquettes, and spare parts.",
+            "brand": {
+              "@type": "Brand",
+              "name": "Shiva Industries"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": averageRating.toFixed(1),
+              "reviewCount": totalReviews,
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "review": reviews.slice(0, 5).map(review => ({
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": review.Name || "Anonymous"
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.Rating,
+                "bestRating": "5"
+              },
+              "reviewBody": review.Message,
+              "datePublished": review.CreatedAt || review.createdAt || new Date().toISOString()
+            }))
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="reviews-hero">
         <div className="reviews-hero-backdrop" aria-hidden="true">
@@ -186,6 +307,17 @@ export default function Reviews() {
             <p className="reviews-hero-copy">
               Real feedback from real clients who trust us with their industrial needs.
             </p>
+            <div className="reviews-hero-contact">
+              <a href={siteConfig.contact.phoneLink1} className="reviews-hero-phone">
+                <Icon name="phone" className="reviews-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="reviews-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="reviews-hero-whatsapp">
+                <Icon name="whatsapp" className="reviews-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -246,6 +378,9 @@ export default function Reviews() {
                 <h2 className="section-title">
                   <span className="text-accent">Real</span> Experiences
                 </h2>
+                <p className="section-subtitle">
+                  Hear what our customers in Sardulgarh, Mansa, Tibbi and across India say about us
+                </p>
               </div>
             </Reveal>
             <Reveal delay="0.1s">
@@ -338,7 +473,7 @@ export default function Reviews() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    placeholder="Tell us about your experience with our products or services..."
+                    placeholder="Tell us about your experience with our hydraulic, biomass, or industrial products..."
                     disabled={submitStatus === 'submitting'}
                   />
                 </div>
@@ -443,6 +578,36 @@ export default function Reviews() {
         </div>
       </section>
 
+      {/* Location Badges Section */}
+      <section className="section location-section">
+        <div className="container">
+          <Reveal>
+            <div className="location-badges-wrapper">
+              <span className="eyebrow">Our Locations</span>
+              <h3>Serving Industrial Needs Across Punjab</h3>
+              <div className="location-badges-grid">
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Sardulgarh</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Mansa</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Tibbi</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">🌍</span>
+                  <span>Pan-India</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="reviews-cta">
         <div className="cta-hazard" aria-hidden="true" />
@@ -453,13 +618,24 @@ export default function Reviews() {
             <p className="cta-copy">
               Explore our products and see why clients trust us for their industrial needs.
             </p>
+            <div className="cta-contact-info">
+              <a href={siteConfig.contact.phoneLink1} className="cta-phone">
+                <Icon name="phone" className="cta-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cta-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cta-whatsapp">
+                <Icon name="whatsapp" className="cta-icon" />
+                WhatsApp
+              </a>
+            </div>
             <div className="cta-actions">
-              <a href="/products" className="btn btn--primary">
+              <Link to="/products" className="btn btn--primary">
                 View Products
-              </a>
-              <a href="/contact" className="btn btn--outline-light">
+              </Link>
+              <Link to="/contact" className="btn btn--outline-light">
                 Get in Touch
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>

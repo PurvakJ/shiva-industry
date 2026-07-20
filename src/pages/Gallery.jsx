@@ -1,8 +1,60 @@
-// Gallery.jsx - Updated component with bigger images
+// Gallery.jsx - Updated component with SEO, contact info, and working buttons
 
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { useEffect, useRef, useState } from 'react';
 import './Gallery.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'gallery',
+    'manufacturing facility',
+    'industrial images',
+    'factory photos'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Reusing icon component */
 function Icon({ name, className }) {
@@ -74,7 +126,7 @@ function Icon({ name, className }) {
             width="3"
             height="5"
             rx="0.5"
-            transform={`rotate(${i * 45} 12 12)`}
+            transform={`rotate(${i * 45} 12 12}`}
           />
         ))}
       </>
@@ -105,6 +157,28 @@ function Icon({ name, className }) {
         <polyline points="21 15 16 10 5 21" />
       </>
     ),
+    phone: (
+      <>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </>
+    ),
+    location: (
+      <>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" fill="currentColor" stroke="none" />
+      </>
+    )
   };
   return (
     <svg
@@ -208,8 +282,57 @@ export default function Gallery() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, filteredGallery]);
 
+
   return (
     <div className="gallery-page">
+      <Helmet>
+        <title>Manufacturing Gallery | Shiva Hydraulic & Biomass Industries</title>
+        <meta name="description" content="Explore our manufacturing capabilities, products, and facilities in Sardulgarh, Mansa, and Tibbi. View images of hydraulic cylinders, biomass briquettes, and industrial spare parts production." />
+        <meta name="keywords" content={`manufacturing gallery, factory photos, industrial images, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/gallery`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Manufacturing Gallery | Shiva Hydraulic & Biomass Industries" />
+        <meta property="og:description" content="Explore our manufacturing capabilities, products, and facilities in Sardulgarh, Mansa, and Tibbi." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/gallery`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Manufacturing Gallery | Shiva Hydraulic & Biomass Industries" />
+        <meta name="twitter:description" content="Explore our manufacturing capabilities, products, and facilities in Sardulgarh, Mansa, and Tibbi." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "name": "Shiva Industries Manufacturing Gallery",
+            "description": "Images of hydraulic cylinders, biomass briquettes, and industrial spare parts manufacturing in Sardulgarh, Mansa, and Tibbi.",
+            "url": `https://${siteConfig.domain}/gallery`,
+            "about": {
+              "@type": "LocalBusiness",
+              "name": "Shiva Hydraulic & Biomass Industries",
+              "telephone": siteConfig.contact.phone1,
+              "email": siteConfig.contact.email,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sardulgarh",
+                "addressRegion": "Punjab",
+                "addressCountry": "India"
+              }
+            },
+            "hasPart": gallery.slice(0, 10).map(item => ({
+              "@type": "ImageObject",
+              "contentUrl": item.ImageURL || item.Image || item.image,
+              "name": item.Title || item.title || "Gallery image",
+              "description": item.Description || item.description || ""
+            }))
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="gallery-hero">
         <div className="gallery-hero-backdrop" aria-hidden="true">
@@ -224,6 +347,17 @@ export default function Gallery() {
             <p className="gallery-hero-copy">
               Explore our manufacturing capabilities, products, and facilities through our image gallery.
             </p>
+            <div className="gallery-hero-contact">
+              <a href={siteConfig.contact.phoneLink1} className="gallery-hero-phone">
+                <Icon name="phone" className="gallery-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="gallery-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="gallery-hero-whatsapp">
+                <Icon name="whatsapp" className="gallery-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -251,6 +385,24 @@ export default function Gallery() {
               </div>
             </Reveal>
           )}
+
+          {/* Location Info */}
+          <Reveal className="gallery-location-info">
+            <div className="location-badges">
+              <span className="location-badge">
+                <Icon name="location" className="location-icon" />
+                Sardulgarh
+              </span>
+              <span className="location-badge">
+                <Icon name="location" className="location-icon" />
+                Mansa
+              </span>
+              <span className="location-badge">
+                <Icon name="location" className="location-icon" />
+                Tibbi
+              </span>
+            </div>
+          </Reveal>
 
           {/* Gallery Grid */}
           {filteredGallery.length > 0 ? (
@@ -291,6 +443,14 @@ export default function Gallery() {
               <h3>No Images Available</h3>
               <p>Gallery images will be added soon.</p>
               <p className="no-gallery-sub">Check back later to see our work.</p>
+              <div className="no-gallery-actions">
+                <Link to="/contact" className="btn btn--primary">
+                  Contact Us
+                </Link>
+                <Link to="/products" className="btn btn--ghost-dark">
+                  View Products
+                </Link>
+              </div>
             </div>
           )}
         </div>
@@ -314,6 +474,10 @@ export default function Gallery() {
                 {selectedImage.Category && (
                   <span className="lightbox-category">{selectedImage.Category}</span>
                 )}
+                <div className="lightbox-location">
+                  <Icon name="location" className="lightbox-location-icon" />
+                  <span>Manufactured in Sardulgarh, Mansa, Punjab</span>
+                </div>
               </div>
             )}
             <div className="lightbox-nav">
@@ -355,13 +519,24 @@ export default function Gallery() {
             <p className="cta-copy">
               Schedule a visit to see our manufacturing capabilities in person.
             </p>
+            <div className="cta-contact-info">
+              <a href={siteConfig.contact.phoneLink1} className="cta-phone">
+                <Icon name="phone" className="cta-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cta-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cta-whatsapp">
+                <Icon name="whatsapp" className="cta-icon" />
+                WhatsApp
+              </a>
+            </div>
             <div className="cta-actions">
-              <a href="/contact" className="btn btn--primary">
+              <Link to="/contact" className="btn btn--primary">
                 Schedule a Visit
-              </a>
-              <a href="/products" className="btn btn--outline-light">
+              </Link>
+              <Link to="/products" className="btn btn--outline-light">
                 View Products
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>

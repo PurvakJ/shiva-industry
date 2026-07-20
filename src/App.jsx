@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { DataProvider, useData } from './context/DataContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -27,6 +28,49 @@ import AdminSettings from './pages/admin/AdminSettings';
 
 import './App.css';
 
+// Site configuration for SEO
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi. Quality industrial solutions since 1990.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -45,9 +89,9 @@ function ScrollToTop() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth' // Adds smooth scrolling animation
+      behavior: 'smooth'
     });
-  }, [pathname]); // Triggers on every route change
+  }, [pathname]);
 
   return null;
 }
@@ -58,14 +102,12 @@ function Shell() {
   const [dataReady, setDataReady] = useState(false);
 
   useEffect(() => {
-    // Check if data is loaded
     if (!loading) {
       setDataReady(true);
     }
   }, [loading]);
 
   useEffect(() => {
-    // Show loader for minimum 1 second even if data loads faster
     const timer = setTimeout(() => {
       setShowLoader(false);
     }, 1000);
@@ -77,6 +119,9 @@ function Shell() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
+        <Helmet>
+          <title>Error | Shiva Hydraulic & Biomass Industries</title>
+        </Helmet>
         <Navbar />
         <main className="flex-1">
           <div className="error-container">
@@ -92,12 +137,13 @@ function Shell() {
     );
   }
 
-  // Show loader if:
-  // 1. Data is still loading AND (showLoader is true OR data is not ready)
-  // 2. OR showLoader is true and data is not ready yet (minimum 2 seconds)
+  // Show loader if data is loading
   if ((loading && showLoader) || (!dataReady && showLoader)) {
     return (
       <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
+        <Helmet>
+          <title>Loading | Shiva Hydraulic & Biomass Industries</title>
+        </Helmet>
         <Navbar />
         <main className="flex-1 flex items-center justify-center">
           <Loader label="Loading your experience..." />
@@ -110,7 +156,91 @@ function Shell() {
   // Data is ready, show the full app
   return (
     <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
-      <ScrollToTop /> {/* Add this component to handle scroll to top */}
+      <Helmet>
+        <title>{siteConfig.name} | Hydraulic & Biomass Solutions in Punjab</title>
+        <meta name="description" content={siteConfig.description} />
+        <meta name="keywords" content={siteConfig.keywords.join(', ')} />
+        <link rel="canonical" href={`https://${siteConfig.domain}`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={`${siteConfig.name} | Hydraulic & Biomass Industry Leaders`} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:url" content={`https://${siteConfig.domain}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={siteConfig.name} />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${siteConfig.name} | Hydraulic & Biomass Solutions`} />
+        <meta name="twitter:description" content={siteConfig.description} />
+        
+        {/* Structured Data / JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": siteConfig.name,
+            "description": siteConfig.description,
+            "url": `https://${siteConfig.domain}`,
+            "telephone": siteConfig.contact.phone1,
+            "email": siteConfig.contact.email,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Sardulgarh",
+              "addressRegion": "Punjab",
+              "addressCountry": "India"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "29.6900",
+              "longitude": "75.2333"
+            },
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Sardulgarh"
+              },
+              {
+                "@type": "City",
+                "name": "Mansa"
+              },
+              {
+                "@type": "City",
+                "name": "Tibbi"
+              }
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Industrial Products",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Hydraulic Cylinders"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Biomass Briquettes"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Industrial Spare Parts"
+                  }
+                }
+              ]
+            }
+          })}
+        </script>
+      </Helmet>
+
+      <ScrollToTop />
       <Navbar />
       <main className="flex-1">
         <Routes>

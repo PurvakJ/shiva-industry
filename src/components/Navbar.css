@@ -12,6 +12,7 @@
   transition: all 0.3s ease;
   height: 76px;
 }
+
 .navbar-link {
   white-space: nowrap;
 }
@@ -95,6 +96,10 @@
   letter-spacing: 0.2em;
   opacity: 0.9;
   margin-top: 1px;
+}
+
+.logo-tagline {
+  display: none;
 }
 
 /* Hamburger Toggle */
@@ -205,7 +210,7 @@
   }
 }
 
-/* Admin Link */
+/* Admin Link - Desktop */
 .navbar-item--admin {
   margin-left: 0.75rem;
   padding-left: 0.75rem;
@@ -336,26 +341,34 @@
     display: none;
   }
 
+  /* Admin Link - Mobile (after Contact) */
   .navbar-item--admin {
     margin-left: 0;
     padding-left: 0;
     border-left: none;
-    margin-top: 0.5rem;
-    padding-top: 0.75rem;
     border-top: 1px solid rgba(245, 243, 238, 0.08);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .admin-link {
     background: transparent !important;
     color: #e0611c !important;
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
     padding: 0.7rem 0 !important;
     border-bottom: 1px solid rgba(245, 243, 238, 0.04);
+    font-weight: 600;
+    letter-spacing: 0.08em;
   }
 
   .admin-link:hover {
     background: transparent !important;
     color: #f5f3ee !important;
+  }
+
+  .admin-link.active {
+    background: transparent !important;
+    color: #e0611c !important;
   }
 
   /* Animation for mobile menu items */

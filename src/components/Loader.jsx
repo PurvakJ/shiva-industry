@@ -49,6 +49,13 @@ export default function Loader({
           </div>
         </div>
 
+        {/* Brand Name */}
+        <div className="loader-brand">
+          <span className="loader-brand-name">SHIVA</span>
+          <span className="loader-brand-industry">HYDRAULIC & BIOMASS</span>
+          <span className="loader-brand-tagline">Industries</span>
+        </div>
+
         {/* Text Content */}
         <div className="loader-content">
           <h3 className="loader-label">

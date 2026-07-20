@@ -1,4 +1,4 @@
-/* ComingSoon.css - Updated to match About page design system */
+/* ComingSoon.css - Complete */
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -56,14 +56,29 @@
   font-weight: 600;
 }
 
+.eyebrow::before {
+  content: '// ';
+  opacity: 0.5;
+}
+
 .eyebrow--light {
   color: #f0a97a;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
+.eyebrow--light::before {
+  content: '// ';
+  opacity: 0.5;
+}
+
 .eyebrow--onDark {
   color: #ffd9b8;
   text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.eyebrow--onDark::before {
+  content: '// ';
+  opacity: 0.5;
 }
 
 .section-title {
@@ -76,9 +91,22 @@
   color: var(--ink);
 }
 
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--orange);
+  margin-top: 0.75rem;
+}
+
 .section-title--light {
   color: var(--warm-white);
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-title--light::after {
+  background: var(--orange);
 }
 
 .text-accent {
@@ -96,10 +124,16 @@
   margin-right: auto;
 }
 
+.section-head--center .section-title::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .section-subtitle {
   font-size: 1.1rem;
   color: var(--ink-light);
   margin-top: 1rem;
+  line-height: 1.7;
 }
 
 /* ============ Reveal Animation ============ */
@@ -136,18 +170,21 @@
   text-decoration: none;
   border-radius: 2px;
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .btn--primary {
   background: var(--orange);
   color: var(--warm-white);
-  border: 1px solid var(--orange);
+  border-color: var(--orange);
 }
 
 .btn--primary:hover {
   background: var(--orange-dark);
   border-color: var(--orange-dark);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(224, 97, 28, 0.3);
 }
 
 .btn--outline {
@@ -171,6 +208,7 @@
 .btn--outline-light:hover {
   background: var(--warm-white);
   color: var(--ink);
+  transform: translateY(-2px);
 }
 
 .btn-icon {
@@ -186,6 +224,10 @@
   color: var(--warm-white);
   padding: 6rem 2rem 0;
   overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .cs-hero-backdrop {
@@ -211,6 +253,19 @@
   padding-bottom: 4rem;
 }
 
+.cs-hero .eyebrow {
+  color: var(--orange-light);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+}
+
+.cs-hero .eyebrow::before {
+  content: '';
+  display: none;
+}
+
 .cs-hero-title {
   font-family: var(--font-display);
   text-transform: uppercase;
@@ -229,14 +284,60 @@
   line-height: 1.8;
 }
 
+/* Hero Contact */
+.cs-hero-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.cs-hero-phone,
+.cs-hero-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--silver-light);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(245, 243, 238, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.cs-hero-phone:hover,
+.cs-hero-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(245, 243, 238, 0.2);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.cs-hero-phone-icon,
+.cs-hero-whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+
+.cs-hero-divider {
+  color: rgba(245, 243, 238, 0.2);
+}
+
 /* ============ Stats Row ============ */
 .cs-stats-row {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--line-onDark);
-  background: rgba(0,0,0,0.2);
-  margin-top: 2rem;
+  background: rgba(0, 0, 0, 0.2);
+  margin-top: auto;
+  width: 100%;
 }
 
 .cs-stat {
@@ -248,10 +349,15 @@
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
+  transition: all 0.3s ease;
 }
 
 .cs-stat:first-child {
   border-left: none;
+}
+
+.cs-stat:hover {
+  background: rgba(224, 97, 28, 0.06);
 }
 
 .cs-stat-icon {
@@ -260,6 +366,12 @@
   color: var(--orange);
   margin-bottom: 0.25rem;
   opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.cs-stat:hover .cs-stat-icon {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .cs-stat-value {
@@ -291,14 +403,14 @@
   background: white;
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--line);
 }
 
 .cs-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
 .cs-card-image {
@@ -312,11 +424,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cs-product-card:hover .cs-card-image img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .cs-card-placeholder {
@@ -324,7 +436,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  background: var(--charcoal-3);
+  background: linear-gradient(135deg, var(--charcoal-2), var(--charcoal-3));
 }
 
 .cs-placeholder-icon {
@@ -341,17 +453,19 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  z-index: 3;
 }
 
 .badge {
   padding: 4px 12px;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: 2px;
   color: white;
   font-family: var(--font-mono);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .badge--coming {
@@ -360,6 +474,7 @@
 
 .badge--status {
   text-align: center;
+  background: #6b7280;
 }
 
 .cs-card-category {
@@ -369,11 +484,13 @@
   padding: 4px 12px;
   background: rgba(27, 34, 38, 0.85);
   color: var(--silver-light);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: 2px;
   font-weight: 500;
+  backdrop-filter: blur(4px);
+  z-index: 3;
 }
 
 .cs-card-content {
@@ -386,6 +503,7 @@
   font-size: 1.15rem;
   margin: 0 0 0.6rem;
   color: var(--ink);
+  line-height: 1.2;
 }
 
 .cs-card-content p {
@@ -393,6 +511,10 @@
   font-size: 0.92rem;
   margin-bottom: 1rem;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cs-card-meta {
@@ -412,6 +534,7 @@
   height: 18px;
   color: var(--orange);
   opacity: 0.7;
+  flex-shrink: 0;
 }
 
 .cs-notify-btn {
@@ -420,29 +543,79 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   background: rgba(224, 97, 28, 0.08);
   color: var(--orange);
   border: 1px solid transparent;
   border-radius: 2px;
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .cs-notify-btn:hover {
   background: rgba(224, 97, 28, 0.16);
   border-color: var(--orange);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(224, 97, 28, 0.15);
 }
 
 .cs-btn-icon {
   width: 18px;
   height: 18px;
+}
+
+/* ============ Location Tags ============ */
+.cs-location-tags {
+  margin-top: 4rem;
+}
+
+.location-badges-wrapper {
+  text-align: center;
+}
+
+.location-badges-wrapper .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.location-badges-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-light);
+  transition: all 0.3s ease;
+}
+
+.location-badge:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(224, 97, 28, 0.1);
+}
+
+.location-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--orange);
+  opacity: 0.7;
 }
 
 /* ============ Empty State ============ */
@@ -505,6 +678,10 @@
   background: var(--charcoal);
 }
 
+.cs-process .section-head .section-subtitle {
+  color: var(--silver);
+}
+
 .cs-process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -517,12 +694,13 @@
   border-radius: 4px;
   text-align: center;
   border: 1px solid var(--line-onDark);
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cs-process-step:hover {
   border-color: var(--orange);
   transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 .cs-step-icon-wrap {
@@ -534,6 +712,12 @@
   background: rgba(224, 97, 28, 0.12);
   border-radius: 50%;
   margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.cs-process-step:hover .cs-step-icon-wrap {
+  background: rgba(224, 97, 28, 0.2);
+  transform: scale(1.05);
 }
 
 .cs-step-icon {
@@ -558,18 +742,20 @@
   font-size: 1rem;
   color: var(--warm-white);
   margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
 }
 
 .cs-process-step p {
   color: var(--silver);
   font-size: 0.9rem;
   line-height: 1.6;
+  margin: 0;
 }
 
 /* ============ CTA Section ============ */
 .cs-cta {
   position: relative;
-  background: var(--orange);
+  background: linear-gradient(135deg, var(--orange-dark), var(--orange), var(--orange-light));
   color: var(--warm-white);
   padding: 5rem 0;
   overflow: hidden;
@@ -580,17 +766,29 @@
   inset: 0;
   background: repeating-linear-gradient(
     -45deg,
-    rgba(0,0,0,0.08),
-    rgba(0,0,0,0.08) 16px,
+    rgba(0, 0, 0, 0.06),
+    rgba(0, 0, 0, 0.06) 16px,
     transparent 16px,
     transparent 32px
   );
+  pointer-events: none;
 }
 
 .cs-cta-inner {
   position: relative;
   text-align: center;
   max-width: 700px;
+  margin: 0 auto;
+}
+
+.cs-cta .eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.5rem;
+}
+
+.cs-cta .eyebrow::before {
+  content: '// ';
+  opacity: 0.5;
 }
 
 .cs-cta-title {
@@ -598,13 +796,59 @@
   text-transform: uppercase;
   font-size: clamp(2rem, 4vw, 3.2rem);
   margin: 0 0 0.8rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cs-cta-copy {
   font-size: 1.1rem;
   color: rgba(245, 243, 238, 0.9);
   margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+/* CTA Contact Info */
+.cs-cta-contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.cs-cta-phone,
+.cs-cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--warm-white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(245, 243, 238, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.cs-cta-phone:hover,
+.cs-cta-whatsapp:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 243, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+.cs-cta-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.cs-cta-divider {
+  color: rgba(245, 243, 238, 0.2);
+  font-size: 1.2rem;
 }
 
 .cs-cta-actions {
@@ -612,6 +856,11 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.cs-cta-actions .btn {
+  min-width: 160px;
+  justify-content: center;
 }
 
 /* ============ Responsive ============ */
@@ -642,18 +891,62 @@
 
   .cs-hero {
     padding: 4rem 1.25rem 0;
+    min-height: 50vh;
   }
 
   .cs-hero-inner {
     padding-bottom: 3rem;
   }
 
-  .cs-process-grid {
-    grid-template-columns: 1fr 1fr;
+  .cs-hero-title {
+    font-size: 2rem;
+  }
+
+  .cs-hero-copy {
+    font-size: 0.95rem;
+  }
+
+  .cs-hero-contact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .cs-hero-phone,
+  .cs-hero-whatsapp {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .cs-hero-divider {
+    display: none;
+  }
+
+  .cs-stats-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cs-stat {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .cs-stat-value {
+    font-size: 1.6rem;
   }
 
   .cs-product-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cs-process-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .cs-process-step {
+    padding: 1.5rem 1rem;
   }
 
   .cs-empty-actions {
@@ -666,6 +959,31 @@
     justify-content: center;
   }
 
+  .location-badges-grid {
+    gap: 0.75rem;
+  }
+
+  .location-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .cs-cta-contact-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .cs-cta-phone,
+  .cs-cta-whatsapp {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .cs-cta-divider {
+    display: none;
+  }
+
   .cs-cta-actions {
     flex-direction: column;
     align-items: center;
@@ -673,6 +991,7 @@
 
   .cs-cta-actions .btn {
     width: 100%;
+    max-width: 280px;
     justify-content: center;
   }
 }
@@ -685,7 +1004,7 @@
   .cs-stat {
     border-left: none;
     border-top: 1px solid var(--line-onDark);
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1.25rem;
   }
 
   .cs-stat:first-child {
@@ -696,21 +1015,203 @@
     grid-template-columns: 1fr;
   }
 
-  .cs-hero-title {
-    font-size: 2rem;
-  }
-
-  .cs-hero-copy {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
   .cs-card-image {
     height: 180px;
   }
 
+  .cs-card-content h3 {
+    font-size: 1rem;
+  }
+
+  .cs-card-content p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .cs-hero-contact {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cs-hero-phone,
+  .cs-hero-whatsapp {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
   .cs-empty-state {
     padding: 2rem 1rem;
+  }
+
+  .cs-empty-state h3 {
+    font-size: 1.2rem;
+  }
+
+  .cs-empty-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cs-empty-rocket {
+    width: 30px;
+    height: 30px;
+  }
+
+  .cs-card-image {
+    height: 160px;
+  }
+
+  .badge {
+    font-size: 0.55rem;
+    padding: 3px 8px;
+  }
+
+  .cs-card-category {
+    font-size: 0.55rem;
+    padding: 3px 8px;
+  }
+
+  .location-badges-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .location-badge {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+
+  .cs-cta-title {
+    font-size: 1.6rem;
+  }
+
+  .cs-cta-copy {
+    font-size: 0.95rem;
+  }
+
+  .cs-cta-phone,
+  .cs-cta-whatsapp {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cs-cta-contact-info {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cs-cta-actions .btn {
+    font-size: 0.7rem;
+    padding: 0.7rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .cs-process-step {
+    padding: 1rem;
+  }
+
+  .cs-process-step h3 {
+    font-size: 0.9rem;
+  }
+
+  .cs-process-step p {
+    font-size: 0.8rem;
+  }
+
+  .cs-step-icon-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cs-step-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .cs-step-number {
+    font-size: 1.5rem;
+  }
+
+  .cs-notify-btn {
+    font-size: 0.65rem;
+    padding: 0.6rem;
+  }
+}
+
+/* ============ Print Styles ============ */
+@media print {
+  .coming-soon-page {
+    background: white;
+    color: black;
+  }
+
+  .cs-hero,
+  .cs-cta,
+  .cs-process {
+    background: white !important;
+    color: black !important;
+  }
+
+  .cs-hero-title {
+    color: black !important;
+  }
+
+  .cs-hero-grid,
+  .cs-hero-backdrop,
+  .cs-cta-pattern {
+    display: none !important;
+  }
+
+  .btn,
+  .cs-notify-btn {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .cs-product-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .cs-process-step {
+    border-color: #ddd !important;
+    background: #f5f5f5 !important;
+  }
+
+  .badge {
+    background: #666 !important;
+  }
+
+  .cs-card-category {
+    background: #666 !important;
+  }
+
+  .cs-stats-row {
+    border-color: #ddd !important;
+  }
+
+  .location-badge {
+    border-color: #ddd !important;
+  }
+
+  .cs-card-meta {
+    border-color: #ddd !important;
   }
 }

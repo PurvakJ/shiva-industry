@@ -1,6 +1,58 @@
+import { Helmet } from 'react-helmet-async';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { api } from '../utils/api';
 import './Contact.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'contact us',
+    'get a quote',
+    'industrial solutions'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'shivahydraulicandbiomass@gmail.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India',
+    hours: 'Mon-Sat: 9:00 AM - 6:00 PM'
+  }
+};
 
 /* Reusing icon component */
 function Icon({ name, className }) {
@@ -48,6 +100,17 @@ function Icon({ name, className }) {
         <line x1="9" y1="18" x2="12" y2="18" />
       </>
     ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </>
+    )
   };
   return (
     <svg
@@ -119,12 +182,15 @@ export default function Contact() {
 
   // Business contact information
   const contactInfo = {
-    address: 'Shiva Industries, Industrial Area, Hisar, Haryana, India',
-    phone1: '+91 92168 00934',
-    phone2: '+91 92168 00996',
-    email: 'shivahydraulicandbiomass@gmail.com',
-    hours: 'Mon-Sat: 9:00 AM - 6:00 PM',
-    location: 'Hisar, Haryana'
+    address: 'Shiva Industries, Sardulgarh, Mansa District, Punjab, India',
+    phone1: siteConfig.contact.phone1,
+    phone2: siteConfig.contact.phone2,
+    phoneLink1: siteConfig.contact.phoneLink1,
+    phoneLink2: siteConfig.contact.phoneLink2,
+    whatsappLink: siteConfig.contact.whatsappLink,
+    email: siteConfig.contact.email,
+    hours: siteConfig.contact.hours,
+    location: 'Sardulgarh, Mansa, Punjab'
   };
 
   const handleChange = (e) => {
@@ -151,6 +217,71 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
+      <Helmet>
+        <title>Contact Us | Shiva Hydraulic & Biomass Industries | Sardulgarh, Mansa</title>
+        <meta name="description" content="Contact Shiva Hydraulic & Biomass Industries for hydraulic cylinders, biomass briquettes, and industrial spare parts. Call +91 92168 00934 or email shivahydraulicandbiomass@gmail.com. Located in Sardulgarh, Mansa, Punjab." />
+        <meta name="keywords" content={`contact us, get a quote, industrial solutions, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/contact`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Contact Us | Shiva Hydraulic & Biomass Industries" />
+        <meta property="og:description" content="Contact us for hydraulic cylinders, biomass briquettes, and industrial spare parts. Call +91 92168 00934 or email shivahydraulicandbiomass@gmail.com." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/contact`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Us | Shiva Hydraulic & Biomass Industries" />
+        <meta name="twitter:description" content="Contact us for hydraulic cylinders, biomass briquettes, and industrial spare parts." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact Us",
+            "description": "Contact Shiva Hydraulic & Biomass Industries for industrial solutions",
+            "url": `https://${siteConfig.domain}/contact`,
+            "about": {
+              "@type": "LocalBusiness",
+              "name": siteConfig.name,
+              "telephone": siteConfig.contact.phone1,
+              "email": siteConfig.contact.email,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sardulgarh",
+                "addressRegion": "Punjab",
+                "addressCountry": "India"
+              },
+              "openingHours": siteConfig.contact.hours,
+              "priceRange": "$$",
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Sardulgarh"
+                },
+                {
+                  "@type": "City",
+                  "name": "Mansa"
+                },
+                {
+                  "@type": "City",
+                  "name": "Tibbi"
+                }
+              ]
+            },
+            "potentialAction": {
+              "@type": "ContactAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": `mailto:${siteConfig.contact.email}`
+              }
+            }
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="contact-hero">
         <div className="contact-hero-backdrop" aria-hidden="true">
@@ -166,6 +297,17 @@ export default function Contact() {
               Have a question about our products or need a custom solution? 
               Reach out to us — we're here to help.
             </p>
+            <div className="contact-hero-phone">
+              <a href={siteConfig.contact.phoneLink1} className="contact-hero-call">
+                <Icon name="phone" className="contact-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="contact-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-hero-whatsapp">
+                <Icon name="whatsapp" className="contact-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -190,6 +332,7 @@ export default function Contact() {
                   <div className="info-content">
                     <strong>Address</strong>
                     <p>{contactInfo.address}</p>
+                    <p className="info-sub">Sardulgarh, Mansa District</p>
                   </div>
                 </div>
 
@@ -200,13 +343,13 @@ export default function Contact() {
                   <div className="info-content">
                     <strong>Phone</strong>
                     <p>
-                      <a href={`tel:${contactInfo.phone1.replace(/\s/g, '')}`}>
-                        {contactInfo.phone1}
+                      <a href={siteConfig.contact.phoneLink1}>
+                        {siteConfig.contact.phone1}
                       </a>
                     </p>
                     <p>
-                      <a href={`tel:${contactInfo.phone2.replace(/\s/g, '')}`}>
-                        {contactInfo.phone2}
+                      <a href={siteConfig.contact.phoneLink2}>
+                        {siteConfig.contact.phone2}
                       </a>
                     </p>
                   </div>
@@ -219,8 +362,8 @@ export default function Contact() {
                   <div className="info-content">
                     <strong>Email</strong>
                     <p>
-                      <a href={`mailto:${contactInfo.email}`}>
-                        {contactInfo.email}
+                      <a href={`mailto:${siteConfig.contact.email}`}>
+                        {siteConfig.contact.email}
                       </a>
                     </p>
                   </div>
@@ -232,7 +375,7 @@ export default function Contact() {
                   </div>
                   <div className="info-content">
                     <strong>Working Hours</strong>
-                    <p>{contactInfo.hours}</p>
+                    <p>{siteConfig.contact.hours}</p>
                     <p className="info-sub">Sunday: Closed</p>
                   </div>
                 </div>
@@ -240,14 +383,48 @@ export default function Contact() {
 
               {/* Quick Contact Buttons */}
               <div className="quick-contact">
-                <a href={`tel:${contactInfo.phone1.replace(/\s/g, '')}`} className="quick-btn">
+                <a href={siteConfig.contact.phoneLink1} className="quick-btn">
                   <Icon name="phone" className="quick-icon" />
                   Call Now
                 </a>
-                <a href={`mailto:${contactInfo.email}`} className="quick-btn">
+                <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="quick-btn whatsapp-btn">
+                  <Icon name="whatsapp" className="quick-icon" />
+                  WhatsApp
+                </a>
+                <a href={`mailto:${siteConfig.contact.email}`} className="quick-btn email-btn">
                   <Icon name="email" className="quick-icon" />
                   Email Us
                 </a>
+              </div>
+
+              {/* Location Tags */}
+              <div className="location-tags">
+                <span className="location-tag">📍 Sardulgarh</span>
+                <span className="location-tag">📍 Mansa</span>
+                <span className="location-tag">📍 Tibbi</span>
+              </div>
+
+              {/* Business Profiles */}
+              <div className="business-profiles">
+                <h4>Find us on</h4>
+                <div className="profile-links">
+                  <a 
+                    href="https://www.indiamart.com/shivaindustries-sardulgarh/profile.html?srsltid=AfmBOoq0Bz51w8fS7dUtwD_Z2fV49dorBbky1gyyG0T47Ztad9gpFQMH" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="profile-link indiamart"
+                  >
+                    <span className="profile-link-text">IndiaMART</span>
+                  </a>
+                  <a 
+                    href="https://www.justdial.com/Mansa/Shiva-Industries/9999P1652-1652-140221093516-F6I5_BZDET" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="profile-link justdial"
+                  >
+                    <span className="profile-link-text">Justdial</span>
+                  </a>
+                </div>
               </div>
             </Reveal>
 
@@ -327,7 +504,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       rows={5}
-                      placeholder="Tell us how we can help you..."
+                      placeholder="Tell us how we can help you with hydraulic, biomass, or industrial solutions..."
                       className={submitStatus === 'submitting' ? 'disabled' : ''}
                       disabled={submitStatus === 'submitting'}
                     />
@@ -379,7 +556,7 @@ export default function Contact() {
               Find Us <span className="text-accent">On The Map</span>
             </h2>
             <p className="section-subtitle">
-              Visit our facility in Hisar, Haryana — we'd love to show you our workshop.
+              Visit our facility in Sardulgarh, Mansa — we'd love to show you our workshop.
             </p>
           </Reveal>
 
@@ -393,7 +570,7 @@ export default function Contact() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="Shiva Industries Location Map"
+                title="Shiva Industries Location Map - Sardulgarh, Mansa"
                 onLoad={() => setMapLoaded(true)}
                 className={mapLoaded ? 'map-loaded' : 'map-loading'}
               />
@@ -401,6 +578,10 @@ export default function Contact() {
                 <div className="map-pin">
                   <Icon name="location" className="map-pin-icon" />
                   <span>Shiva Industries</span>
+                </div>
+                <div className="map-location-details">
+                  <span>Sardulgarh, Mansa</span>
+                  <span>Punjab, India</span>
                 </div>
               </div>
             </div>
@@ -418,14 +599,24 @@ export default function Contact() {
             <p className="cta-copy">
               From custom components to complete systems — we're here to bring your vision to life.
             </p>
+            <div className="cta-contact-info">
+              <a href={siteConfig.contact.phoneLink1} className="cta-phone">
+                <Icon name="phone" className="cta-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cta-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cta-whatsapp">
+                <Icon name="whatsapp" className="cta-icon" />
+                WhatsApp
+              </a>
+            </div>
             <div className="cta-actions">
-              <a href={`tel:${contactInfo.phone1.replace(/\s/g, '')}`} className="btn btn--primary">
-                <Icon name="phone" className="btn-icon" />
-                Call Now
-              </a>
-              <a href="/products" className="btn btn--outline-light">
+              <Link to="/products" className="btn btn--primary">
                 Explore Products
-              </a>
+              </Link>
+              <Link to="/gallery" className="btn btn--outline-light">
+                View Our Work
+              </Link>
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,59 @@
+import { Helmet } from 'react-helmet-async';
 import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import './Products.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'hydraulic cylinders',
+    'biomass briquettes',
+    'industrial spare parts',
+    'shredder parts',
+    'custom fabrication'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Reusing icon component */
 function Icon({ name, className }) {
@@ -176,6 +229,12 @@ function Icon({ name, className }) {
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
         <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
       </>
+    ),
+    location: (
+      <>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" fill="currentColor" stroke="none" />
+      </>
     )
   };
   return (
@@ -256,9 +315,6 @@ function parseSpecs(description) {
 
 /* Contact Phone Number Component */
 function ContactPhone() {
-  const phoneNumber = '+91 92168 00934';
-  const phoneLink = 'tel:+919216800934';
-  
   return (
     <div className="contact-phone-card">
       <div className="contact-phone-icon">
@@ -266,10 +322,13 @@ function ContactPhone() {
       </div>
       <div className="contact-phone-content">
         <span className="contact-phone-label">Call for Enquiry</span>
-        <a href={phoneLink} className="contact-phone-number">
-          {phoneNumber}
+        <a href={siteConfig.contact.phoneLink1} className="contact-phone-number">
+          {siteConfig.contact.phone1}
         </a>
-        <a href={`https://wa.me/919216800934`} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+        <a href={siteConfig.contact.phoneLink2} className="contact-phone-number secondary">
+          {siteConfig.contact.phone2}
+        </a>
+        <a href={siteConfig.contact.whatsappLink} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
           <Icon name="whatsapp" className="whatsapp-icon" />
           WhatsApp
         </a>
@@ -280,6 +339,7 @@ function ContactPhone() {
 
 /* Product Detail Page Component */
 function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
+  const navigate = useNavigate();
   const parsedData = product?.Description ? parseSpecs(product.Description) : null;
   const hasSpecs = parsedData && Object.keys(parsedData.specs).length > 0;
 
@@ -299,6 +359,14 @@ function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
 
   // Filter related products (exclude current product)
   const filteredRelated = relatedProducts.filter(p => p.ID !== product.ID && p.Name !== product.Name);
+
+  const handleRelatedClick = (relatedProduct) => {
+    onClose();
+    // Navigate to products page with category filter
+    if (relatedProduct.Category) {
+      navigate(`/products?category=${encodeURIComponent(relatedProduct.Category)}`);
+    }
+  };
 
   return (
     <div className="product-detail-overlay" onClick={onClose}>
@@ -375,8 +443,18 @@ function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
                 </div>
               )}
 
+              {/* Location Info */}
+              <div className="detail-location-info">
+                <Icon name="location" className="location-icon" />
+                <span>Manufactured in Sardulgarh, Mansa, Punjab</span>
+              </div>
+
               <div className="detail-actions">
                 <ContactPhone />
+                <Link to="/contact" className="detail-btn detail-btn-primary">
+                  <Icon name="message" className="btn-icon" />
+                  Enquire Now
+                </Link>
                 <button 
                   className="detail-btn detail-btn-secondary"
                   onClick={onClose}
@@ -397,11 +475,7 @@ function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
                   const relatedSpecs = relatedParsed && Object.keys(relatedParsed.specs).length > 0;
                   
                   return (
-                    <div key={related.ID || related.id} className="related-card" onClick={() => {
-                      // You can implement navigation to view this product
-                      // For now, just close and you can add logic to open new product
-                      onClose();
-                    }}>
+                    <div key={related.ID || related.id} className="related-card" onClick={() => handleRelatedClick(related)}>
                       {related.Image && (
                         <div className="related-image-wrap">
                           <img src={related.Image} alt={related.Name} className="related-image" />
@@ -446,14 +520,27 @@ function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
 
 export default function Products() {
   const { data } = useData();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { products = [] } = data || {};
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  
+  // Get category from URL params
+  const initialCategory = searchParams.get('category') || 'all';
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('name');
   
   // Modal states
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Update category when URL param changes
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   const categories = ['all', ...new Set(products.map(p => p.Category).filter(Boolean))];
 
@@ -488,8 +575,64 @@ export default function Products() {
     setSelectedProduct(null);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    // Update URL with category param
+    if (category === 'all') {
+      navigate('/products');
+    } else {
+      navigate(`/products?category=${encodeURIComponent(category)}`);
+    }
+  };
+
   return (
     <div className="products-page">
+      <Helmet>
+        <title>Industrial Products | Hydraulic, Biomass & Spare Parts | Shiva Industries</title>
+        <meta name="description" content="Explore our comprehensive range of hydraulic cylinders, biomass briquettes, shredder parts, and industrial spare parts. Quality products manufactured in Sardulgarh, Mansa, and Tibbi." />
+        <meta name="keywords" content={`industrial products, hydraulic cylinders, biomass briquettes, spare parts, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/products`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Industrial Products | Hydraulic, Biomass & Spare Parts | Shiva Industries" />
+        <meta property="og:description" content="Explore our comprehensive range of hydraulic cylinders, biomass briquettes, shredder parts, and industrial spare parts." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/products`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Industrial Products | Shiva Hydraulic & Biomass Industries" />
+        <meta name="twitter:description" content="Explore our comprehensive range of hydraulic cylinders, biomass briquettes, and industrial spare parts." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Industrial Products",
+            "description": "Comprehensive range of hydraulic cylinders, biomass briquettes, and industrial spare parts",
+            "numberOfItems": products.length,
+            "itemListElement": products.slice(0, 10).map((product, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "Product",
+                "name": product.Name,
+                "description": product.Description,
+                "image": product.Image,
+                "category": product.Category,
+                "offers": {
+                  "@type": "Offer",
+                  "price": product.Price || "Contact for price",
+                  "priceCurrency": "INR"
+                }
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="products-hero">
         <div className="products-hero-backdrop" aria-hidden="true">
@@ -505,6 +648,17 @@ export default function Products() {
               Explore our comprehensive range of hydraulic systems, biomass machinery parts,
               and shredder components — all engineered for durability and performance.
             </p>
+            <div className="products-hero-contact">
+              <a href={siteConfig.contact.phoneLink1} className="products-hero-phone">
+                <Icon name="phone" className="products-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="products-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="products-hero-whatsapp">
+                <Icon name="whatsapp" className="products-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -575,7 +729,7 @@ export default function Products() {
                     <button
                       key={category}
                       className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                      onClick={() => setSelectedCategory(category)}
+                      onClick={() => handleCategoryChange(category)}
                     >
                       {category === 'all' ? 'All Products' : category}
                       <span className="category-count">{getCategoryCount(category)}</span>
@@ -685,6 +839,7 @@ export default function Products() {
                     onClick={() => {
                       setSearchQuery('');
                       setSelectedCategory('all');
+                      navigate('/products');
                     }}
                   >
                     Reset Filters
@@ -699,15 +854,45 @@ export default function Products() {
               <p>Products will be added soon.</p>
               <p className="no-products-sub">Check back later for our complete range.</p>
               <div className="no-products-actions">
-                <a href="/contact" className="btn btn--primary">
+                <Link to="/contact" className="btn btn--primary">
                   Contact Us
-                </a>
-                <a href="/coming-soon" className="btn btn--ghost-dark">
+                </Link>
+                <Link to="/coming-soon" className="btn btn--ghost-dark">
                   View Coming Soon
-                </a>
+                </Link>
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Location Section */}
+      <section className="section location-section">
+        <div className="container">
+          <Reveal>
+            <div className="location-badges-wrapper">
+              <span className="eyebrow">Manufacturing Locations</span>
+              <h3>Proudly Serving Industries Across Punjab</h3>
+              <div className="location-badges-grid">
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Sardulgarh</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Mansa</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">📍</span>
+                  <span>Tibbi</span>
+                </div>
+                <div className="location-badge-item">
+                  <span className="location-icon">🌍</span>
+                  <span>Pan-India Delivery</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -721,13 +906,24 @@ export default function Products() {
             <p className="cta-copy">
               Don't see what you're looking for? We offer custom fabrication and engineering services.
             </p>
+            <div className="cta-contact-info">
+              <a href={siteConfig.contact.phoneLink1} className="cta-phone">
+                <Icon name="phone" className="cta-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="cta-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="cta-whatsapp">
+                <Icon name="whatsapp" className="cta-icon" />
+                WhatsApp
+              </a>
+            </div>
             <div className="cta-actions">
-              <a href="/contact" className="btn btn--primary">
+              <Link to="/contact" className="btn btn--primary">
                 Get a Quote
-              </a>
-              <a href="/gallery" className="btn btn--outline-light">
+              </Link>
+              <Link to="/gallery" className="btn btn--outline-light">
                 View Our Work
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>

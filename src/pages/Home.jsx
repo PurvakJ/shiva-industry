@@ -1,6 +1,54 @@
 import { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useData } from '../context/DataContext';
+import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi. Quality industrial solutions since 1990.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Enhanced icon set with more detail */
 function Icon({ name, className }) {
@@ -122,6 +170,12 @@ function Icon({ name, className }) {
         <polyline points="15 3 21 3 21 9" />
         <line x1="10" y1="14" x2="21" y2="3" />
       </>
+    ),
+    location: (
+      <>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" />
+      </>
     )
   };
   return (
@@ -213,10 +267,6 @@ function getRandomItems(array, count) {
 
 /* Contact Phone Component with Direct Call & WhatsApp */
 function ContactPhone() {
-  const phoneNumber = '+91 92168 00934';
-  const phoneLink = 'tel:+919216800934';
-  const whatsappLink = 'https://wa.me/919216800934';
-  
   return (
     <div className="contact-phone-card">
       <div className="contact-phone-icon">
@@ -225,16 +275,17 @@ function ContactPhone() {
       <div className="contact-phone-content">
         <span className="contact-phone-label">Call or WhatsApp for Enquiry</span>
         <div className="contact-actions-row">
-          <a href={phoneLink} className="contact-call-btn">
+          <a href={siteConfig.contact.phoneLink1} className="contact-call-btn">
             <Icon name="phone" className="action-icon" />
             Call Now
           </a>
-          <a href={whatsappLink} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+          <a href={siteConfig.contact.whatsappLink} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" className="whatsapp-icon" />
             WhatsApp
           </a>
         </div>
-        <span className="contact-phone-number-display">{phoneNumber}</span>
+        <span className="contact-phone-number-display">{siteConfig.contact.phone1}</span>
+        <span className="contact-phone-number-display secondary">{siteConfig.contact.phone2}</span>
       </div>
     </div>
   );
@@ -366,24 +417,28 @@ const CORE_LINES = [
     title: 'Hydraulic Systems',
     body: 'Cylinders, pumps and power packs machined to hold pressure, shift after shift.',
     image: 'https://i.postimg.cc/sxsX9gJK/48f0eb5f-fc3f-4739-88a2-ade77a648e1b.png',
+    link: '/products?category=hydraulic'
   },
   {
     icon: 'biomass',
     title: 'Biomass Machinery',
     body: 'Wear-resistant parts for shredding, pelletising and processing plant biomass.',
     image: 'https://i.postimg.cc/W4qhsK37/7ec259ad-79f2-4f72-844c-81da41ab3a2c.png',
+    link: '/products?category=biomass'
   },
   {
     icon: 'shredder',
     title: 'Shredder Parts',
     body: 'Blades, rotors and liners hardened for high-load, continuous-duty cutting.',
     image: 'https://i.postimg.cc/wjG18H6X/4b16d519-8dde-4d8e-9a97-28b9480915ff.png',
+    link: '/products?category=spare-parts'
   },
   {
     icon: 'support',
     title: 'And Beyond',
     body: 'Custom fabrication and spares for machinery that falls outside a catalogue.',
     image: 'https://i.postimg.cc/Hs3JzXRF/2bbb0603-8fd7-4c41-a045-13b86582d590.png',
+    link: '/contact'
   },
 ];
 
@@ -396,6 +451,7 @@ const TRUST_STATS = [
 
 export default function Home() {
   const { data } = useData();
+  const navigate = useNavigate();
   const { products = [], reviews = [], upcomingSites = [] } = data || {};
   
   // Modal states
@@ -433,8 +489,109 @@ export default function Home() {
     setSelectedProduct(null);
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <div className="home-page">
+      <Helmet>
+        <title>Shiva Hydraulic & Biomass Industries | Sardulgarh, Mansa, Tibbi</title>
+        <meta name="description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi. Quality industrial solutions since 1990." />
+        <meta name="keywords" content={siteConfig.keywords.join(', ')} />
+        <link rel="canonical" href={`https://${siteConfig.domain}`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Shiva Hydraulic & Biomass Industries | Industrial Solutions in Punjab" />
+        <meta property="og:description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi." />
+        <meta property="og:url" content={`https://${siteConfig.domain}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Shiva Hydraulic & Biomass Industries | Sardulgarh, Mansa, Tibbi" />
+        <meta name="twitter:description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts." />
+        
+        {/* Location-specific meta tags */}
+        <meta name="geo.region" content="IN-PB" />
+        <meta name="geo.placename" content="Sardulgarh" />
+        <meta name="geo.position" content="29.6900;75.2333" />
+        <meta name="ICBM" content="29.6900, 75.2333" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Shiva Hydraulic & Biomass Industries",
+            "description": "Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.",
+            "url": `https://${siteConfig.domain}`,
+            "telephone": siteConfig.contact.phone1,
+            "email": siteConfig.contact.email,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Sardulgarh",
+              "addressRegion": "Punjab",
+              "addressCountry": "India"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "29.6900",
+              "longitude": "75.2333"
+            },
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Sardulgarh"
+              },
+              {
+                "@type": "City",
+                "name": "Mansa"
+              },
+              {
+                "@type": "City",
+                "name": "Tibbi"
+              }
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Industrial Products",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Hydraulic Cylinders"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Biomass Briquettes"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Industrial Spare Parts"
+                  }
+                }
+              ]
+            },
+            "potentialAction": {
+              "@type": "OrderAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": `https://${siteConfig.domain}/products`
+              }
+            }
+          })}
+        </script>
+      </Helmet>
+
       {/* HERO */}
       <section className="hero">
         <div className="hero-backdrop" aria-hidden="true">
@@ -469,12 +626,12 @@ export default function Home() {
             If it needs to run hard and keep running, we&apos;ve probably built a part for it.
           </p>
           <div className="hero-actions">
-            <a href="/products" className="btn btn--primary">
+            <Link to="/products" className="btn btn--primary">
               View Products
-            </a>
-            <a href="/contact" className="btn btn--ghost">
+            </Link>
+            <Link to="/contact" className="btn btn--ghost">
               Get a Quote
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -530,6 +687,13 @@ export default function Home() {
                 <Icon name="support" className="check-icon" /> Dedicated after-sales support
               </li>
             </ul>
+            
+            {/* Location-Specific Content */}
+            <div className="location-tags">
+              <span className="location-tag">📍 Sardulgarh</span>
+              <span className="location-tag">📍 Mansa</span>
+              <span className="location-tag">📍 Tibbi</span>
+            </div>
           </Reveal>
           <Reveal className="about-image-wrap" delay="0.1s">
             <img
@@ -556,7 +720,7 @@ export default function Home() {
           <div className="feature-grid">
             {CORE_LINES.map((f, i) => (
               <Reveal key={f.title} delay={`${i * 0.08}s`}>
-                <div className="feature-card">
+                <div className="feature-card" onClick={() => handleNavigation(f.link)} style={{ cursor: 'pointer' }}>
                   <div className="feature-image-wrap">
                     <img src={f.image} alt={f.title} className="feature-image" />
                     <div className="feature-overlay">
@@ -567,6 +731,7 @@ export default function Home() {
                   </div>
                   <h3>{f.title}</h3>
                   <p>{f.body}</p>
+                  <span className="feature-link">Learn More →</span>
                 </div>
               </Reveal>
             ))}
@@ -582,9 +747,9 @@ export default function Home() {
               <span className="eyebrow">Our Range</span>
               <h2 className="section-title">Parts for the plant floor.</h2>
             </div>
-            <a href="/products" className="link-arrow">
+            <Link to="/products" className="link-arrow">
               All Products <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </Reveal>
 
           {selectedProducts.length > 0 ? (
@@ -727,9 +892,9 @@ export default function Home() {
               ))}
             </div>
             <div className="view-all">
-              <a href="/reviews" className="link-arrow link-arrow--light">
+              <Link to="/reviews" className="link-arrow link-arrow--light">
                 View All Reviews <span aria-hidden="true">&rarr;</span>
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -745,14 +910,22 @@ export default function Home() {
             <p className="cta-copy">
               Tell us the machine, the load, the deadline — we&apos;ll tell you the part.
             </p>
+            <div className="location-badges">
+              <span className="location-badge">📍 Sardulgarh</span>
+              <span className="location-badge">📍 Mansa</span>
+              <span className="location-badge">📍 Tibbi</span>
+            </div>
           </div>
           <div className="cta-actions">
-            <a href="tel:+919216800934" className="btn btn--outline-light">
+            <a href={siteConfig.contact.phoneLink1} className="btn btn--outline-light">
               <Icon name="phone" className="btn-icon" /> Call Now
             </a>
-            <a href="https://wa.me/919216800934" target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+            <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
               <Icon name="whatsapp" className="btn-icon" /> WhatsApp
             </a>
+            <Link to="/contact" className="btn btn--ghost-light">
+              <Icon name="message" className="btn-icon" /> Contact Us
+            </Link>
           </div>
         </div>
       </section>

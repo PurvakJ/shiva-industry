@@ -1,173 +1,166 @@
-/* Loader.css */
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
-
-.loader-container {
-  --loader-primary: #e0611c;
-  --loader-secondary: rgba(224, 97, 28, 0.3);
-  --loader-bg: rgba(27, 34, 38, 0.95);
-  
+/* Brand Name Styles */
+.loader-brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', -apple-system, sans-serif;
-  color: #f5f3ee;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-/* ============ Variants ============ */
+.loader-brand-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #2d7d46;
+  line-height: 1.2;
+}
 
-/* Fullscreen - covers entire viewport */
+.loader-brand-industry {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #4a4a4a;
+  text-transform: uppercase;
+}
+
+.loader-brand-tagline {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Fullscreen variant */
 .loader-container.fullscreen {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background: var(--loader-bg);
-  backdrop-filter: blur(12px);
-  animation: fadeIn 0.3s ease;
-}
-
-/* Overlay - covers parent container with overlay */
-.loader-container.overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-  background: rgba(27, 34, 38, 0.85);
+  background: rgba(248, 245, 240, 0.95);
   backdrop-filter: blur(8px);
-  border-radius: inherit;
-  animation: fadeIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* Inline - sits within flow */
+/* Inline variant */
 .loader-container.inline {
-  position: relative;
-  padding: 2rem;
-  background: transparent;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 200px;
 }
 
-/* ============ Wrapper ============ */
+/* Overlay variant */
+.loader-container.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(248, 245, 240, 0.92);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: inherit;
+}
+
 .loader-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 1.25rem;
   max-width: 400px;
-  padding: 1rem;
+  padding: 2rem;
 }
 
-/* ============ Spinner ============ */
+/* Spinner Styles */
 .loader-spinner-wrapper {
   position: relative;
+  width: 72px;
+  height: 72px;
 }
 
 .loader-spinner {
   position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-/* Spinner Ring */
-.spinner-ring {
   width: 100%;
   height: 100%;
-  animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  transform-origin: center;
-}
-
-.spinner-ring-path {
-  stroke: var(--loader-secondary);
-  stroke-linecap: round;
-  stroke-dasharray: 126;
-  stroke-dashoffset: 126;
-  animation: dash 1.5s ease-in-out infinite;
+  animation: spin 1.2s linear infinite;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.spinner-ring-path {
+  stroke: #2d7d46;
+  stroke-linecap: round;
+  stroke-dasharray: 125;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes dash {
-  0% {
-    stroke-dashoffset: 126;
-  }
-  50% {
-    stroke-dashoffset: 40;
-    transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: 126;
-    transform: rotate(450deg);
-  }
+  0% { stroke-dashoffset: 125; }
+  50% { stroke-dashoffset: 30; }
+  100% { stroke-dashoffset: 125; }
 }
 
-/* Loader Icon in Center */
 .loader-icon {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
-  color: var(--loader-primary);
-  opacity: 0.8;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2d7d46;
+  font-size: 1.5rem;
 }
 
 .loader-icon svg {
-  width: 100%;
-  height: 100%;
-  animation: pulse 2s ease-in-out infinite;
+  width: 28px;
+  height: 28px;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-}
-
-/* ============ Content ============ */
+/* Content Styles */
 .loader-content {
   text-align: center;
+  width: 100%;
 }
 
 .loader-label {
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
-  font-weight: 600;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #f5f3ee;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #2d2d2d;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
 }
 
 .loader-dots {
   display: inline-block;
-  min-width: 1.2em;
-  color: var(--loader-primary);
-  animation: blinkDots 1.2s ease-in-out infinite;
-}
-
-@keyframes blinkDots {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  min-width: 1.2rem;
+  color: #2d7d46;
+  font-weight: 700;
 }
 
 .loader-sub-label {
-  color: #aeb9bd;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: #666;
   margin: 0.25rem 0 0;
-  line-height: 1.5;
+  font-weight: 400;
 }
 
-/* ============ Progress Bar ============ */
+/* Progress Bar Styles */
 .loader-progress-wrapper {
   width: 100%;
   max-width: 280px;
@@ -179,147 +172,87 @@
 .loader-progress-bar {
   flex: 1;
   height: 4px;
-  background: rgba(245, 243, 238, 0.08);
-  border-radius: 2px;
+  background: #e5e0db;
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
 
 .loader-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--loader-secondary), var(--loader-primary));
-  border-radius: 2px;
+  background: #2d7d46;
+  border-radius: 4px;
   transition: width 0.4s ease;
   width: 0%;
 }
 
-/* Indeterminate animation */
 .loader-progress-fill.indeterminate {
-  width: 30%;
-  animation: indeterminate 1.5s ease-in-out infinite;
+  width: 40%;
+  animation: indeterminate 1.2s ease-in-out infinite;
 }
 
 @keyframes indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(400%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
 }
 
 .loader-progress-text {
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--loader-primary);
-  min-width: 40px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #666;
+  min-width: 3rem;
   text-align: right;
 }
 
-/* ============ Animations ============ */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .loader-brand-name {
+    font-size: 1.4rem;
   }
-  to {
-    opacity: 1;
+  
+  .loader-brand-industry {
+    font-size: 0.65rem;
   }
-}
-
-/* ============ Responsive ============ */
-@media (max-width: 768px) {
-  .loader-spinner {
-    width: 64px;
-    height: 64px;
+  
+  .loader-brand-tagline {
+    font-size: 0.55rem;
   }
-
-  .loader-icon {
-    width: 26px;
-    height: 26px;
+  
+  .loader-spinner-wrapper {
+    width: 56px;
+    height: 56px;
   }
-
+  
+  .loader-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  
   .loader-label {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
-
-  .loader-sub-label {
-    font-size: 0.8rem;
-  }
-
-  .loader-progress-wrapper {
-    max-width: 220px;
-  }
-
-  .loader-progress-text {
-    font-size: 0.7rem;
-    min-width: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .loader-spinner {
-    width: 52px;
-    height: 52px;
-  }
-
-  .loader-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .loader-label {
-    font-size: 0.9rem;
-  }
-
+  
   .loader-sub-label {
     font-size: 0.75rem;
   }
-
-  .loader-progress-wrapper {
-    max-width: 180px;
-  }
-
-  .loader-progress-text {
-    font-size: 0.65rem;
-    min-width: 28px;
-  }
-
-  .loader-container.fullscreen {
-    backdrop-filter: blur(6px);
+  
+  .loader-wrapper {
+    padding: 1.5rem;
+    gap: 1rem;
   }
 }
 
-/* ============ Reduced Motion ============ */
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .loader-container.fullscreen {
-    animation: none;
-  }
-
-  .loader-container.overlay {
-    animation: none;
-  }
-
-  .spinner-ring {
+  .loader-spinner {
     animation-duration: 2s;
   }
-
+  
   .spinner-ring-path {
-    animation: none;
-    stroke-dasharray: 126;
-    stroke-dashoffset: 40;
+    animation-duration: 2s;
   }
-
-  .loader-icon svg {
-    animation: none;
-  }
-
-  .loader-dots {
-    animation: none;
-  }
-
+  
   .loader-progress-fill.indeterminate {
-    animation: none;
-    width: 50%;
+    animation-duration: 2s;
   }
 }

@@ -1,6 +1,57 @@
+import { Helmet } from 'react-helmet-async';
 import { useData } from '../context/DataContext';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './UpcomingSites.css';
+
+/* Site configuration for SEO */
+const siteConfig = {
+  domain: 'shivahydraulicandbiomass.com',
+  name: 'Shiva Hydraulic & Biomass Industries',
+  shortName: 'Shiva Industries',
+  description: 'Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.',
+  keywords: [
+    'hydraulic industry',
+    'hydraulic industry in sardulgarh',
+    'hydraulic industry near me',
+    'hydraulic industry in mansa',
+    'hydraulic industry in tibbi',
+    'biomass industry',
+    'biomass industry in mansa',
+    'biomass industry in sardulgarh',
+    'biomass industry near me',
+    'biomass industry in tibbi',
+    'biomass spare parts manufacturer',
+    'biomass manufacturers',
+    'biomass manufacturers in mansa',
+    'biomass manufacturers near me',
+    'biomass manufacturers in sardulgarh',
+    'biomass manufacturers in tibbi',
+    'biomass spare parts manufacturer in mansa',
+    'biomass spare parts manufacturer near me',
+    'biomass spare parts manufacturer in sardulgarh',
+    'biomass spare parts manufacturer in tibbi',
+    'shiva industries',
+    'shiva industries near me',
+    'shiva industries in mansa',
+    'shiva industries in sardulgarh',
+    'shiva industries in tibbi',
+    'shiva hydraulic industries',
+    'shiva biomass industries',
+    'upcoming sites',
+    'new locations',
+    'expansion roadmap'
+  ],
+  contact: {
+    phone1: '+91 92168 00934',
+    phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
+    email: 'info@shivahydraulicandbiomass.com',
+    address: 'Sardulgarh, Mansa District, Punjab, India'
+  }
+};
 
 /* Reusing the Icon component */
 function Icon({ name, className }) {
@@ -119,7 +170,6 @@ function Icon({ name, className }) {
         <path d="M18 12h2" />
       </>
     ),
-    // Additional icons for Upcoming Sites
     location: (
       <>
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -157,6 +207,22 @@ function Icon({ name, className }) {
         <path d="M2 17l10 5 10-5" />
         <path d="M2 12l10 5 10-5" />
         <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      </>
+    ),
+    phone: (
+      <>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </>
     ),
   };
@@ -221,6 +287,7 @@ export default function UpcomingSites() {
   const { data } = useData();
   const { upcomingSites = [] } = data || {};
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [notifyStatus, setNotifyStatus] = useState({});
 
   // Get unique site types
   const siteTypes = ['all', ...new Set(upcomingSites.map(site => site.Type || site.Category || 'General').filter(Boolean))];
@@ -277,6 +344,27 @@ export default function UpcomingSites() {
     return { label: 'Upcoming', className: 'upcoming' };
   };
 
+  // Handle notify click
+  const handleNotify = (siteId, siteName) => {
+    setNotifyStatus(prev => ({
+      ...prev,
+      [siteId]: 'notified'
+    }));
+    
+    // Open WhatsApp with pre-filled message
+    const message = `Hi Shiva Industries, I want to get notified about the upcoming site: ${siteName}. Please keep me updated.`;
+    const whatsappUrl = `https://wa.me/919216800934?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  // Handle location click
+  const handleLocation = (location) => {
+    if (location) {
+      const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(location)}`;
+      window.open(mapsUrl, '_blank');
+    }
+  };
+
   // Stats
   const stats = {
     total: sites.length,
@@ -289,6 +377,48 @@ export default function UpcomingSites() {
 
   return (
     <div className="upcoming-sites-page">
+      <Helmet>
+        <title>Upcoming Sites & Locations | Shiva Hydraulic & Biomass Industries</title>
+        <meta name="description" content="Discover upcoming sites and new locations of Shiva Hydraulic & Biomass Industries. Expanding our reach in Sardulgarh, Mansa, Tibbi, and across India." />
+        <meta name="keywords" content={`upcoming sites, new locations, expansion roadmap, ${siteConfig.keywords.join(', ')}`} />
+        <link rel="canonical" href={`https://${siteConfig.domain}/upcoming-sites`} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Upcoming Sites & Locations | Shiva Hydraulic & Biomass Industries" />
+        <meta property="og:description" content="Discover upcoming sites and new locations of Shiva Hydraulic & Biomass Industries. Expanding our reach in Sardulgarh, Mansa, Tibbi, and across India." />
+        <meta property="og:url" content={`https://${siteConfig.domain}/upcoming-sites`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Upcoming Sites & Locations | Shiva Industries" />
+        <meta name="twitter:description" content="Discover upcoming sites and new locations of Shiva Hydraulic & Biomass Industries." />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Upcoming Sites & Locations",
+            "description": "Discover upcoming sites and new locations of Shiva Hydraulic & Biomass Industries.",
+            "url": `https://${siteConfig.domain}/upcoming-sites`,
+            "about": {
+              "@type": "LocalBusiness",
+              "name": "Shiva Hydraulic & Biomass Industries",
+              "telephone": siteConfig.contact.phone1,
+              "email": siteConfig.contact.email,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sardulgarh",
+                "addressRegion": "Punjab",
+                "addressCountry": "India"
+              }
+            }
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="us-hero">
         <div className="us-hero-backdrop" aria-hidden="true">
@@ -305,6 +435,17 @@ export default function UpcomingSites() {
                 ? "Discover new locations where you can access our products, services, and expertise"
                 : "We're expanding our reach to serve you better with industrial solutions"}
             </p>
+            <div className="us-hero-contact">
+              <a href={siteConfig.contact.phoneLink1} className="us-hero-phone">
+                <Icon name="phone" className="us-hero-phone-icon" />
+                {siteConfig.contact.phone1}
+              </a>
+              <span className="us-hero-divider">|</span>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="us-hero-whatsapp">
+                <Icon name="whatsapp" className="us-hero-whatsapp-icon" />
+                WhatsApp
+              </a>
+            </div>
           </Reveal>
         </div>
 
@@ -429,11 +570,18 @@ export default function UpcomingSites() {
                           </div>
 
                           <div className="us-card-actions">
-                            <button className="us-btn us-btn--notify">
+                            <button 
+                              className="us-btn us-btn--notify"
+                              onClick={() => handleNotify(site.id, site.name)}
+                              disabled={notifyStatus[site.id] === 'notified'}
+                            >
                               <Icon name="handshake" className="us-btn-icon" />
-                              Notify Me
+                              {notifyStatus[site.id] === 'notified' ? 'Notified!' : 'Notify Me'}
                             </button>
-                            <button className="us-btn us-btn--location">
+                            <button 
+                              className="us-btn us-btn--location"
+                              onClick={() => handleLocation(site.location)}
+                            >
                               <Icon name="map" className="us-btn-icon" />
                               View Location
                             </button>
@@ -455,13 +603,13 @@ export default function UpcomingSites() {
                 <p>We're always looking to serve more industries and regions.</p>
                 <p className="us-empty-subtext">Subscribe to get notified when we launch in your area.</p>
                 <div className="us-empty-actions">
-                  <a href="/contact" className="btn btn--primary">
+                  <Link to="/contact" className="btn btn--primary">
                     <Icon name="handshake" className="btn-icon" />
                     Get Notified
-                  </a>
-                  <a href="/products" className="btn btn--outline">
+                  </Link>
+                  <Link to="/products" className="btn btn--outline">
                     Browse Products
-                  </a>
+                  </Link>
                 </div>
               </div>
             </Reveal>
@@ -528,13 +676,38 @@ export default function UpcomingSites() {
             <p className="us-cta-copy">
               Interested in having Shiva Industry in your area? Let's discuss partnership opportunities.
             </p>
+            <div className="us-cta-contact-info">
+              <div className="us-cta-phone">
+                <Icon name="phone" className="us-cta-icon" />
+                <div>
+                  <span>Call us at</span>
+                  <a href={siteConfig.contact.phoneLink1} className="us-cta-number">
+                    {siteConfig.contact.phone1}
+                  </a>
+                </div>
+              </div>
+              <div className="us-cta-divider" />
+              <div className="us-cta-email">
+                <Icon name="message" className="us-cta-icon" />
+                <div>
+                  <span>Email us at</span>
+                  <a href={`mailto:${siteConfig.contact.email}`} className="us-cta-email-link">
+                    {siteConfig.contact.email}
+                  </a>
+                </div>
+              </div>
+            </div>
             <div className="us-cta-actions">
-              <a href="/contact" className="btn btn--primary">
+              <Link to="/contact" className="btn btn--primary">
                 <Icon name="handshake" className="btn-icon" />
                 Contact Us
-              </a>
-              <a href="/products" className="btn btn--outline-light">
+              </Link>
+              <Link to="/products" className="btn btn--outline-light">
                 Explore Products
+              </Link>
+              <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp">
+                <Icon name="whatsapp" className="btn-icon" />
+                WhatsApp
               </a>
             </div>
           </Reveal>

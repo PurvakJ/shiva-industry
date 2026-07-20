@@ -63,6 +63,19 @@ function Icon({ name, className }) {
         <polyline points="5 12 12 5 19 12" />
       </>
     ),
+    whatsapp: (
+      <>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <path d="M8 10h.01M12 10h.01M16 10h.01" strokeWidth="2" strokeLinecap="round" />
+      </>
+    ),
+    external: (
+      <>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </>
+    )
   };
   return (
     <svg
@@ -85,14 +98,23 @@ export default function Footer() {
 
   // Business contact information
   const contactInfo = {
-    address: 'Shiva Industries, Industrial Area, Hisar, Haryana, India',
+    address: 'Shiva Industries, Sardulgarh, Mansa District, Punjab, India',
     phone1: '+91 92168 00934',
     phone2: '+91 92168 00996',
+    phoneLink1: 'tel:+919216800934',
+    phoneLink2: 'tel:+919216800996',
+    whatsappLink: 'https://wa.me/919216800934',
     email: 'shivahydraulicandbiomass@gmail.com',
-    hours: 'Mon-Sat: 9:00 AM - 6:00 PM'
+    emailLink: 'mailto:shivahydraulicandbiomass@gmail.com',
+    hours: 'Mon-Sat: 9:00 AM - 6:00 PM',
+    locations: ['Sardulgarh', 'Mansa', 'Tibbi'],
+    // Business profile links
+    indiamart: 'https://www.indiamart.com/shivaindustries-sardulgarh/profile.html?srsltid=AfmBOoq0Bz51w8fS7dUtwD_Z2fV49dorBbky1gyyG0T47Ztad9gpFQMH',
+    justdial: 'https://www.justdial.com/Mansa/Shiva-Industries/9999P1652-1652-140221093516-F6I5_BZDET'
   };
 
   const quickLinks = [
+    { path: '/', label: 'Home' },
     { path: '/about', label: 'About Us' },
     { path: '/products', label: 'Products' },
     { path: '/gallery', label: 'Gallery' },
@@ -100,39 +122,6 @@ export default function Footer() {
     { path: '/coming-soon', label: 'Coming Soon' },
     { path: '/reviews', label: 'Reviews' },
     { path: '/contact', label: 'Contact' },
-  ];
-
-  const socialLinks = [
-    { 
-      name: 'Facebook', 
-      icon: 'facebook', 
-      url: 'https://facebook.com/shivaindustry',
-      color: '#1877f2'
-    },
-    { 
-      name: 'Instagram', 
-      icon: 'instagram', 
-      url: 'https://instagram.com/shivaindustry',
-      color: '#e4405f'
-    },
-    { 
-      name: 'LinkedIn', 
-      icon: 'linkedin', 
-      url: 'https://linkedin.com/company/shivaindustry',
-      color: '#0a66c2'
-    },
-    { 
-      name: 'YouTube', 
-      icon: 'youtube', 
-      url: 'https://youtube.com/shivaindustry',
-      color: '#ff0000'
-    },
-    { 
-      name: 'Twitter', 
-      icon: 'twitter', 
-      url: 'https://twitter.com/shivaindustry',
-      color: '#000000'
-    },
   ];
 
   const scrollToTop = () => {
@@ -155,7 +144,8 @@ export default function Footer() {
               </div>
               <div className="footer-logo-text">
                 <span className="logo-brand">Shiva</span>
-                <span className="logo-industry">Industry</span>
+                <span className="logo-industry">Hydraulic & Biomass</span>
+                <span className="logo-tagline">Industries</span>
               </div>
             </div>
             <p className="footer-description">
@@ -163,6 +153,11 @@ export default function Footer() {
               biomass machinery parts and shredder components for plants that 
               can't afford downtime.
             </p>
+            <div className="footer-locations">
+              <span className="location-tag">📍 Sardulgarh</span>
+              <span className="location-tag">📍 Mansa</span>
+              <span className="location-tag">📍 Tibbi</span>
+            </div>
             <div className="footer-tagline">
               <span className="tagline-text">Engineered to Outlast.</span>
             </div>
@@ -200,12 +195,21 @@ export default function Footer() {
               <Icon name="phone" className="contact-icon" />
               <div>
                 <span className="contact-label">Phone</span>
-                <a href={`tel:${contactInfo.phone1.replace(/\s/g, '')}`} className="contact-value phone-link">
+                <a href={contactInfo.phoneLink1} className="contact-value phone-link">
                   {contactInfo.phone1}
                 </a>
                 <br />
-                <a href={`tel:${contactInfo.phone2.replace(/\s/g, '')}`} className="contact-value phone-link">
+                <a href={contactInfo.phoneLink2} className="contact-value phone-link">
                   {contactInfo.phone2}
+                </a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <Icon name="whatsapp" className="contact-icon" />
+              <div>
+                <span className="contact-label">WhatsApp</span>
+                <a href={contactInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-value whatsapp-link">
+                  Chat on WhatsApp
                 </a>
               </div>
             </div>
@@ -213,7 +217,7 @@ export default function Footer() {
               <Icon name="email" className="contact-icon" />
               <div>
                 <span className="contact-label">Email</span>
-                <a href={`mailto:${contactInfo.email}`} className="contact-value email-link">
+                <a href={contactInfo.emailLink} className="contact-value email-link">
                   {contactInfo.email}
                 </a>
               </div>
@@ -228,50 +232,40 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Business Profiles */}
           <div className="footer-section">
-            <h3 className="footer-heading">Follow Us</h3>
-            <p className="social-description">Connect with us on social media for updates and news.</p>
-            <div className="social-links">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label={social.name}
-                  style={{ '--social-color': social.color }}
-                >
-                  <Icon name={social.icon} className="social-icon" />
-                  <span className="social-name">{social.name}</span>
-                </a>
-              ))}
+            <h3 className="footer-heading">Business Profiles</h3>
+            <p className="social-description">Find us on leading business platforms:</p>
+            <div className="profile-links">
+              <a 
+                href={contactInfo.indiamart} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="profile-link indiamart"
+              >
+                <Icon name="external" className="profile-icon" />
+                <span>IndiaMART</span>
+              </a>
+              <a 
+                href={contactInfo.justdial} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="profile-link justdial"
+              >
+                <Icon name="external" className="profile-icon" />
+                <span>Justdial</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom Bar - Centered */}
       <div className="footer-bottom">
-        <div className="footer-container">
-          <div className="footer-bottom-content">
-            <p className="footer-copyright">
-              &copy; {currentYear} Shiva Industry. All rights reserved.
-            </p>
-            <div className="footer-bottom-links">
-              <a href="/privacy-policy" className="bottom-link">Privacy Policy</a>
-              <span className="bottom-separator">|</span>
-              <a href="/terms" className="bottom-link">Terms of Service</a>
-              <span className="bottom-separator">|</span>
-              <a href="/sitemap" className="bottom-link">Sitemap</a>
-            </div>
-            <div className="footer-credit">
-              <span>Designed with</span>
-              <span className="credit-heart">❤</span>
-              <span>by Shiva Industry Team</span>
-            </div>
-          </div>
+        <div className="footer-bottom-container">
+          <p className="footer-copyright">
+            &copy; {currentYear} Shiva Hydraulic & Biomass Industries. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
