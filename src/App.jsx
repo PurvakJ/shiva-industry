@@ -211,14 +211,15 @@ function Shell() {
 
     return (
       <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
+        {/* FIXED: Removed any ": Error" from title - using clean title */}
         <Helmet>
-          <title>{siteConfig.name} | Premium Hydraulic & Biomass Solutions</title>
+          <title>Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab</title>
           <meta name="description" content={siteConfig.description} />
           <meta name="keywords" content={siteConfig.keywords.join(', ')} />
           <link rel="canonical" href={`https://${siteConfig.domain}`} />
           
           {/* Open Graph Tags */}
-          <meta property="og:title" content={`${siteConfig.name} | Premium Hydraulic & Biomass Solutions`} />
+          <meta property="og:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab" />
           <meta property="og:description" content={siteConfig.description} />
           <meta property="og:url" content={`https://${siteConfig.domain}`} />
           <meta property="og:type" content="website" />
@@ -226,7 +227,7 @@ function Shell() {
           
           {/* Twitter Card Tags */}
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={`${siteConfig.name} | Premium Hydraulic & Biomass Solutions`} />
+          <meta name="twitter:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions" />
           <meta name="twitter:description" content={siteConfig.description} />
           
           {/* Structured Data / JSON-LD */}
@@ -320,7 +321,7 @@ function Shell() {
     return (
       <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
         <Helmet>
-          <title>Loading | {siteConfig.name}</title>
+          <title>Loading | Shiva Hydraulic & Biomass Industries</title>
         </Helmet>
         <Navbar />
         <main className="flex-1 flex items-center justify-center">
@@ -335,13 +336,13 @@ function Shell() {
   return (
     <div className="min-h-screen flex flex-col bg-sage text-ink font-body">
       <Helmet>
-        <title>{siteConfig.name} | Premium Hydraulic & Biomass Solutions</title>
+        <title>Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab</title>
         <meta name="description" content={siteConfig.description} />
         <meta name="keywords" content={siteConfig.keywords.join(', ')} />
         <link rel="canonical" href={`https://${siteConfig.domain}`} />
         
         {/* Open Graph Tags */}
-        <meta property="og:title" content={`${siteConfig.name} | Premium Hydraulic & Biomass Solutions`} />
+        <meta property="og:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab" />
         <meta property="og:description" content={siteConfig.description} />
         <meta property="og:url" content={`https://${siteConfig.domain}`} />
         <meta property="og:type" content="website" />
@@ -349,7 +350,7 @@ function Shell() {
         
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${siteConfig.name} | Premium Hydraulic & Biomass Solutions`} />
+        <meta name="twitter:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions" />
         <meta name="twitter:description" content={siteConfig.description} />
         
         {/* Structured Data / JSON-LD */}
