@@ -55,7 +55,7 @@ const siteConfig = {
   }
 };
 
-/* Reusing icon component */
+/* Icon component */
 function Icon({ name, className }) {
   const paths = {
     hydraulic: (
@@ -362,7 +362,6 @@ function ProductDetailPage({ product, onClose, relatedProducts = [] }) {
 
   const handleRelatedClick = (relatedProduct) => {
     onClose();
-    // Navigate to products page with category filter
     if (relatedProduct.Category) {
       navigate(`/products?category=${encodeURIComponent(relatedProduct.Category)}`);
     }
@@ -577,7 +576,6 @@ export default function Products() {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    // Update URL with category param
     if (category === 'all') {
       navigate('/products');
     } else {
@@ -757,31 +755,39 @@ export default function Products() {
                   return (
                     <Reveal key={product.ID || product.id || index} delay={`${(index % 6) * 0.05}s`}>
                       <div className={`product-card ${viewMode}`}>
-                        {product.Image && (
-                          <div className="product-image-wrap">
+                        <div className="product-image-wrap">
+                          {product.Image && (
                             <img 
                               src={product.Image} 
                               alt={product.Name} 
                               className="product-image" 
                               loading="lazy"
                             />
-                            {product.Featured === true && (
-                              <span className="featured-badge">
-                                <Icon name="star" className="featured-icon" />
-                                Featured
-                              </span>
-                            )}
-                            {product.Stock !== undefined && product.Stock <= 5 && product.Stock > 0 && (
-                              <span className="stock-badge low-stock">Low Stock</span>
-                            )}
-                            {product.Stock === 0 && (
-                              <span className="stock-badge out-of-stock">Out of Stock</span>
-                            )}
+                          )}
+                          {product.Featured === true && (
+                            <span className="featured-badge">
+                              <Icon name="star" className="featured-icon" />
+                              Featured
+                            </span>
+                          )}
+                          {product.Stock !== undefined && product.Stock <= 5 && product.Stock > 0 && (
+                            <span className="stock-badge low-stock">Low Stock</span>
+                          )}
+                          {product.Stock === 0 && (
+                            <span className="stock-badge out-of-stock">Out of Stock</span>
+                          )}
+                          <div className="product-image-overlay">
+                            <button 
+                              className="product-view-btn"
+                              onClick={() => handleViewDetails(product)}
+                            >
+                              Quick View
+                            </button>
                           </div>
-                        )}
+                        </div>
                         <div className="product-content">
                           <div className="product-header">
-                            <h3>{product.Name}</h3>
+                            <h3 className="product-title">{product.Name}</h3>
                             {product.Category && (
                               <span className="product-category">{product.Category}</span>
                             )}
@@ -819,6 +825,9 @@ export default function Products() {
                               >
                                 View Details
                               </button>
+                              <Link to="/contact" className="product-btn enquiry-btn">
+                                Enquire
+                              </Link>
                             </div>
                           </div>
                         </div>

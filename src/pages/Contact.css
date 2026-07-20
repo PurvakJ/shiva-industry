@@ -1250,3 +1250,274 @@
 .profile-link-text {
   font-weight: 500;
 }
+
+/* ============ Contact Main ============ */
+.contact-main {
+  background: var(--warm-white-light);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Contact Info */
+.contact-info {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  position: sticky;
+  top: 2rem;
+  transition: box-shadow 0.3s ease;
+  align-self: start;
+}
+
+/* Contact Form */
+.contact-form-wrapper {
+  width: 100%;
+  align-self: start;
+}
+
+.contact-form-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .contact-info {
+    position: static;
+    order: 2;
+  }
+
+  .contact-form-wrapper {
+    order: 1;
+  }
+
+  .contact-info:hover {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .contact-grid {
+    max-width: 100%;
+    gap: 1.5rem;
+  }
+
+  .contact-info,
+  .contact-form-card {
+    padding: 1.5rem;
+  }
+
+  .contact-info-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .contact-form-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .quick-contact {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .quick-btn {
+    padding: 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .location-tags {
+    gap: 0.4rem;
+  }
+
+  .location-tag {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-grid {
+    gap: 1.25rem;
+  }
+
+  .contact-info,
+  .contact-form-card {
+    padding: 1.25rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .info-item:hover {
+    transform: none;
+  }
+
+  .info-icon-wrap {
+    width: 40px;
+    height: 40px;
+  }
+
+  .info-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-info-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .contact-form-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .quick-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-hero-phone {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-hero-call,
+  .contact-hero-whatsapp {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  .map-wrapper {
+    height: 250px;
+  }
+
+  .map-pin {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .map-pin span {
+    font-size: 0.7rem;
+  }
+
+  .map-pin-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cta-phone,
+  .cta-whatsapp {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-contact-info {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-cta .cta-actions .btn {
+    font-size: 0.7rem;
+    padding: 0.7rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .submit-btn {
+    font-size: 0.75rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .status-message {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+
+  /* Business Profiles */
+  .profile-links {
+    justify-content: center;
+  }
+
+  .profile-link {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Small screens - center everything */
+@media (max-width: 400px) {
+  .contact-grid {
+    gap: 1rem;
+  }
+
+  .contact-info,
+  .contact-form-card {
+    padding: 1rem;
+  }
+
+  .info-content {
+    text-align: center;
+  }
+
+  .info-content a {
+    word-break: break-all;
+  }
+
+  .location-tags {
+    justify-content: center;
+  }
+
+  .business-profiles {
+    text-align: center;
+  }
+
+  .profile-links {
+    justify-content: center;
+  }
+}
