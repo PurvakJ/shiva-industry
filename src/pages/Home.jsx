@@ -4,7 +4,7 @@ import { useData } from '../context/DataContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
 
-/* Site configuration for SEO */
+/* Site configuration for SEO - FIXED: Removed "Error" from all titles */
 const siteConfig = {
   domain: 'shivahydraulicandbiomass.com',
   name: 'Shiva Hydraulic & Biomass Industries',
@@ -279,7 +279,7 @@ function ContactPhone() {
             <Icon name="phone" className="action-icon" />
             Call Now
           </a>
-          <a href={siteConfig.contact.whatsappLink} className="contact-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+          <a href={siteConfig.contact.whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-whatsapp-btn">
             <Icon name="whatsapp" className="whatsapp-icon" />
             WhatsApp
           </a>
@@ -450,12 +450,22 @@ const TRUST_STATS = [
 ];
 
 export default function Home() {
-  const { data } = useData();
+  const { data, loading, error } = useData();
   const navigate = useNavigate();
   const { products = [], reviews = [], upcomingSites = [] } = data || {};
   
   // Modal states
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isOffline, setIsOffline] = useState(false);
+
+  // Check if data is available or if we're in an error state
+  useEffect(() => {
+    if (error) {
+      setIsOffline(true);
+    } else if (data && Object.keys(data).length > 0) {
+      setIsOffline(false);
+    }
+  }, [data, error]);
 
   // Get random 6 products (prioritize featured ones first)
   const featuredProducts = products.filter(
@@ -493,25 +503,33 @@ export default function Home() {
     navigate(path);
   };
 
+  // Determine if we should show a warning about data loading
+  const showDataWarning = loading && !data;
+
   return (
     <div className="home-page">
       <Helmet>
-        <title>Shiva Hydraulic & Biomass Industries | Sardulgarh, Mansa, Tibbi</title>
-        <meta name="description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi. Quality industrial solutions since 1990." />
+        {/* FIXED: Removed "Error" from title - using proper business name */}
+        <title>Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab</title>
+        <meta name="description" content={siteConfig.description} />
         <meta name="keywords" content={siteConfig.keywords.join(', ')} />
         <link rel="canonical" href={`https://${siteConfig.domain}`} />
         
         {/* Open Graph Tags */}
-        <meta property="og:title" content="Shiva Hydraulic & Biomass Industries | Industrial Solutions in Punjab" />
-        <meta property="og:description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi." />
+        <meta property="og:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions in Punjab" />
+        <meta property="og:description" content={siteConfig.description} />
         <meta property="og:url" content={`https://${siteConfig.domain}`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Shiva Hydraulic & Biomass Industries" />
+        <meta property="og:image" content="https://i.postimg.cc/sxsX9gJK/48f0eb5f-fc3f-4739-88a2-ade77a648e1b.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Shiva Hydraulic & Biomass Industries | Sardulgarh, Mansa, Tibbi" />
-        <meta name="twitter:description" content="Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts." />
+        <meta name="twitter:title" content="Shiva Hydraulic & Biomass Industries | Premium Industrial Solutions" />
+        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:image" content="https://i.postimg.cc/sxsX9gJK/48f0eb5f-fc3f-4739-88a2-ade77a648e1b.png" />
         
         {/* Location-specific meta tags */}
         <meta name="geo.region" content="IN-PB" />
@@ -519,13 +537,19 @@ export default function Home() {
         <meta name="geo.position" content="29.6900;75.2333" />
         <meta name="ICBM" content="29.6900, 75.2333" />
         
+        {/* Additional SEO meta tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="author" content="Shiva Hydraulic & Biomass Industries" />
+        
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Shiva Hydraulic & Biomass Industries",
-            "description": "Leading manufacturer of hydraulic cylinders, biomass briquettes, and spare parts in Sardulgarh, Mansa, and Tibbi.",
+            "description": siteConfig.description,
             "url": `https://${siteConfig.domain}`,
             "telephone": siteConfig.contact.phone1,
             "email": siteConfig.contact.email,
@@ -591,6 +615,35 @@ export default function Home() {
           })}
         </script>
       </Helmet>
+
+      {/* Data Loading Warning - Shows when API is slow or failing */}
+      {showDataWarning && !isOffline && (
+        <div className="data-warning-banner">
+          <div className="data-warning-content">
+            <Icon name="alert" className="data-warning-icon" />
+            <span>Loading product data... Please wait.</span>
+          </div>
+        </div>
+      )}
+
+      {/* Offline Mode Banner - Shows when API has failed */}
+      {isOffline && (
+        <div className="offline-banner">
+          <div className="offline-content">
+            <Icon name="alert" className="offline-icon" />
+            <div>
+              <strong>Using cached data</strong>
+              <p>We're having trouble connecting to our servers. Showing previously loaded content.</p>
+            </div>
+            <button 
+              className="offline-retry-btn"
+              onClick={() => window.location.reload()}
+            >
+              Retry Connection
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* HERO */}
       <section className="hero">
@@ -824,7 +877,12 @@ export default function Home() {
               })}
             </div>
           ) : (
-            <p className="no-data">No featured products yet — check back soon.</p>
+            <div className="no-data-container">
+              <p className="no-data">No products available at the moment. Please check back soon.</p>
+              {isOffline && (
+                <p className="no-data-sub">We're having trouble connecting to our servers. Please refresh the page.</p>
+              )}
+            </div>
           )}
         </div>
       </section>
